@@ -147,7 +147,7 @@ export default function Cv() {
                             target="_blank" 
                             color="primary" 
                             variant="outlined" 
-                            label="Symfony 4"
+                            label="Symfony 3"
                     />
                     <Chip className="ml-2"
                             avatar={<Avatar><CodeIcon/></Avatar>} 
@@ -156,7 +156,7 @@ export default function Cv() {
                             target="_blank" 
                             color="primary" 
                             variant="outlined" 
-                            label="Symfony 4"
+                            label="Bootstrap 4"
                     />
                 </div>
                 <div className="mb-5"></div>
