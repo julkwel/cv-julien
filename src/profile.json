@@ -1,0 +1,56 @@
+{
+    "profile":{
+        "nom":"RAJERISON",
+        "prenom":"Julien",
+        "dn":"29 Janvier 1995",
+        "state":"Madagascar",
+        "phone":"+261 32 94 730 33",
+        "ln":"Miarinarivo",
+        "email":"julienrajerison5@gmail.com",
+        "me":"Currently Web developer at Bocasay and Techzara founder , also love to code with PHP and Javascript , passionate about linux and latest new Technologies."
+    },
+    "network":{
+        "facebook":"https://facebook.com/julkwel",
+        "github":"https://github.com/julkwel",
+        "linkedin":"https://www.linkedin.com/in/julien-rajerison-433715bb/",
+        "stackoverflow":"https://stackoverflow.com/users/10462455/julien-rajerison"
+    },
+    "education":{
+        "emedia":"Webmaster With Very Good Mention",
+        "cntemad":"DTS in Computerized Management",
+        "me":"Self-Taught",
+        "self":"90% of my skills are through by my research and my experience"
+    },
+    "experience":{
+        "bocasay":"(Actual) PHP (Symfony) and Javascript Developer",
+        "consultant":"Consultant PHP (Joomla) at Geofit.",
+        "livenexx":"PHP and Javascript Developer",
+        "telma":"Javascript (ReactJs) Developer",
+        "orange":"Stage : Build Web Application with HTML , CSS , JS , Jquery , C#"
+    },
+    "skills":{
+        "professional":[
+            "PHP","Symfony","ElasticSearch","RabbitMQ","JavaScript","JQuery","Angular","React","Docker","HTML5" ,"CSS3"
+        ],
+        "database":[
+            "MongoDB","MySql","PostgreSQL"
+        ],
+        "tools":[
+            "PHPSTORM","VSCODE","SublimeText","WebStorm","Git"
+        ],
+        "environment":[
+            "Linux","Windows","MacOS","Github","Gitlab","BitBucket","CircleCI","GitlabCI"
+        ],
+        "configuration":[
+            "Apache server","FTP","SSH"
+        ],
+        "other":[
+            "flutter","Python","C#","Kibana","GraphQL","VueJs"
+        ]
+    },
+    "certificate":{
+        "symfony4":"https://skillvalue.com/fr/certificate/y25cDR4xyK1x0AdfzwlFPa2WWPL1Cxs3Z4mOtigWpZaeOioBK7wxyD6YI3LN",
+        "symfony3":"https://skillvalue.com/fr/certificate/LVimVEogrBg0FdwMUmJWFu6xIT1ol0baq0CLq1XTRTP2kkpHz4LVrHtcv278",
+        "bootstrap4":"https://skillvalue.com/fr/certificate/q7mDFFGYk2d6Yi9r30eh9EGa3b3bLib6esoaKXuu746LwzHspZfIWJjkfgkb"
+    }
+}
