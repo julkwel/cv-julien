@@ -7,6 +7,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import CodeIcon from '@material-ui/icons/CodeOutlined';
+import GetAppIcon from '@material-ui/icons/GetAppRounded';
 
 export default function Cv() {
         return (
@@ -16,7 +17,13 @@ export default function Cv() {
                         <img src={jul} alt="Julien Rajerison" className="rounded-circle jul-photo"/>
                     </div>
                     <div className="col-md-8">
-                        <h2 className="text-left">Hello , I'm Julien.</h2>
+                        <div className="row">
+                            <h2 className="text-left"><span role="img" aria-label="Hi">👋</span> Hello , I'm Julien.</h2>
+                            <div className="ml-auto">
+                                <a rel="noopener noreferrer" href={profileData.profile.githubLink} target="_blank" className="text-secondary"><GitHubIcon/></a>
+                                <a rel="noopener noreferrer" href={profileData.profile.cvLink} target="_blank" className="text-secondary ml-3"><GetAppIcon/></a>
+                            </div>
+                        </div>
                         <hr/>
                         <h5>Professional developer</h5>
                         <span>{profileData.profile.me}</span>
@@ -41,38 +48,35 @@ export default function Cv() {
                         {profileData.profile.state}
                         <hr/>
                         <h4>Network</h4>
-                        <Chip 
-                            avatar={<Avatar><GitHubIcon/></Avatar>} 
+                        <Chip  className="text-primary"
+                            avatar={<Avatar><GitHubIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.github}
                             target="_blank" 
                             variant="outlined" 
                             label="Github"
                             />
-                        <Chip className="ml-2 text-danger"
-                            avatar={<Avatar><LinkedInIcon/></Avatar>} 
+                        <Chip className="ml-2 text-primary"
+                            avatar={<Avatar><LinkedInIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.linkedin}
                             target="_blank"
-                            color="secondary"
                             variant="outlined" 
                             label="Linkedin"
                             />
-                         <Chip className="ml-2"
-                            avatar={<Avatar><ViewListIcon/></Avatar>} 
+                         <Chip className="ml-2 text-primary"
+                            avatar={<Avatar><ViewListIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.stackoverflow}
-                            target="_blank" 
-                            color="primary" 
+                            target="_blank"
                             variant="outlined" 
                             label="Stackoverflow"
                             />
-                        <Chip className="ml-2"
-                            avatar={<Avatar><FacebookIcon/></Avatar>} 
+                        <Chip className="ml-2 text-primary"
+                            avatar={<Avatar><FacebookIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.facebook}
-                            target="_blank" 
-                            color="primary" 
+                            target="_blank"
                             variant="outlined" 
                             label="Facebook"
                             />
@@ -81,20 +85,13 @@ export default function Cv() {
 
                 <div className="col-md-12 mt-5">
                     <h1>EXPERIENCE</h1>
-                    <h4>BOCASAY</h4>
-                    {profileData.experience.bocasay}
-                    <hr/>
-                    <h4>CONSULTANT</h4>
-                    {profileData.experience.consultant}
-                    <hr></hr>
-                    <h4>LIVENEXX</h4>
-                    {profileData.experience.livenexx}
-                    <hr></hr>
-                    <h4>TELMA</h4>
-                    {profileData.experience.telma}
-                    <hr></hr>
-                    <h4>ORANGE</h4>
-                    {profileData.experience.orange}
+                    {profileData.experience.map((item,key) => {
+                        return <div key={key}><h4>{item.entreprise}</h4>
+                                    <span>{item.post}</span><br></br>
+                                    <span><mark className="text-primary">Stack</mark> : {item.stack}</span>
+                                    <hr></hr>
+                                </div>
+                    })}
                 </div>
 
                 <div className="col-md-12 mt-5">
@@ -130,9 +127,16 @@ export default function Cv() {
                     })}
                 </div>
                 <div className="col-md-12 mt-5">
+                    <h1>My Qualities</h1>
+                    {profileData.qualities.map((item,key)=>{
+                        return <Chip label={item} key={key} variant="outlined" color="primary" className="m-2"/>
+                    })}
+                    <hr/>
+                </div>
+                <div className="col-md-12 mt-5">
                     <h1>CERTIFICATE</h1>
                     <Chip className="ml-2"
-                            avatar={<Avatar><CodeIcon/></Avatar>} 
+                            avatar={<Avatar><CodeIcon className="text-danger"/></Avatar>} 
                             component="a" 
                             href={profileData.certificate.symfony4}
                             target="_blank" 
@@ -141,7 +145,7 @@ export default function Cv() {
                             label="Symfony 4"
                     />
                     <Chip className="ml-2"
-                            avatar={<Avatar><CodeIcon/></Avatar>} 
+                            avatar={<Avatar><CodeIcon className="text-danger"/></Avatar>} 
                             component="a" 
                             href={profileData.certificate.symfony3}
                             target="_blank" 
@@ -150,7 +154,7 @@ export default function Cv() {
                             label="Symfony 3"
                     />
                     <Chip className="ml-2"
-                            avatar={<Avatar><CodeIcon/></Avatar>} 
+                            avatar={<Avatar><CodeIcon className="text-danger"/></Avatar>} 
                             component="a" 
                             href={profileData.certificate.bootstrap4}
                             target="_blank" 
@@ -161,7 +165,7 @@ export default function Cv() {
                 </div>
                 <div className="mb-5"></div>
                 <div className="col-md-12">
-                    <h1 className="text-center">Thank You !</h1>
+                    <h5 className="text-center">" {profileData.footer} "</h5>
                 </div>
             </div>
         );
