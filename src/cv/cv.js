@@ -11,7 +11,7 @@ import GetAppIcon from '@material-ui/icons/GetAppRounded';
 
 export default function Cv() {
         return (
-            <div className="col-md-12 bg-light p-5">
+            <div className="col-md-12 bg-light p-3">
                 <div className="row">
                     <div className="col-md-4">
                         <img src={jul} alt="Julien Rajerison" className="rounded-circle jul-photo"/>
