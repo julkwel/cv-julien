@@ -30,7 +30,7 @@ export default function Cv() {
                     </div>
                 </div>
             
-                    <div className="col-md-12 mt-3">
+                    <div className="mt-3">
                         <h1>PROFILE</h1>
                         <h4>Full Name</h4>
                         {profileData.profile.nom + ' ' + profileData.profile.prenom}
@@ -83,7 +83,7 @@ export default function Cv() {
                         <hr/>
                     </div>
 
-                <div className="col-md-12 mt-5">
+                <div className="mt-5">
                     <h1>EXPERIENCE</h1>
                     {profileData.experience.map((item,key) => {
                         return <div key={key}><h4>{item.entreprise}</h4>
@@ -94,7 +94,7 @@ export default function Cv() {
                     })}
                 </div>
 
-                <div className="col-md-12 mt-5">
+                <div className="mt-5">
                     <h1>SKILLS</h1>
                     <h4>PROFESSIONAL</h4>
                     {profileData.skills.professional.map((item,key)=>{
@@ -126,14 +126,14 @@ export default function Cv() {
                         return <Chip label={item} variant="outlined" key={key} color="primary" className="m-2"/>
                     })}
                 </div>
-                <div className="col-md-12 mt-5">
+                <div className="mt-5">
                     <h1>My Qualities</h1>
                     {profileData.qualities.map((item,key)=>{
                         return <Chip label={item} key={key} variant="outlined" color="primary" className="m-2"/>
                     })}
                     <hr/>
                 </div>
-                <div className="col-md-12 mt-5">
+                <div className="mt-5">
                     <h1>CERTIFICATE</h1>
                     <Chip className="ml-2"
                             avatar={<Avatar><CodeIcon className="text-danger"/></Avatar>} 
