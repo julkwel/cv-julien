@@ -1,5 +1,4 @@
 import React from 'react';
-import jul from "https://avatars2.githubusercontent.com/u/30557565";
 import profileData from "../profile.json";
 import { Chip,Avatar} from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -14,7 +13,7 @@ export default function Cv() {
             <div className="col-md-12 bg-light p-3">
                 <div className="row">
                     <div className="col-md-4">
-                        <img src={jul} alt="Julien Rajerison" className="rounded-circle jul-photo"/>
+                        <img src="https://avatars2.githubusercontent.com/u/30557565" alt="Julien Rajerison" className="rounded-circle jul-photo"/>
                     </div>
                     <div className="col-md-8">
                         <div className="row">
