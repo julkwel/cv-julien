@@ -55,7 +55,7 @@ export default function Cv() {
                             variant="outlined" 
                             label="Github"
                             />
-                        <Chip className="ml-2 text-primary"
+                        <Chip className="ml-md-2 text-primary"
                             avatar={<Avatar><LinkedInIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.linkedin}
@@ -63,7 +63,7 @@ export default function Cv() {
                             variant="outlined" 
                             label="Linkedin"
                             />
-                         <Chip className="ml-2 text-primary"
+                         <Chip className="ml-md-2 text-primary"
                             avatar={<Avatar><ViewListIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.stackoverflow}
@@ -71,7 +71,7 @@ export default function Cv() {
                             variant="outlined" 
                             label="Stackoverflow"
                             />
-                        <Chip className="ml-2 text-primary"
+                        <Chip className="ml-md-2 text-primary"
                             avatar={<Avatar><FacebookIcon className="text-primary"/></Avatar>} 
                             component="a" 
                             href={profileData.network.facebook}
