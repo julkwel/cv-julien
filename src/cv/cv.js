@@ -1,5 +1,5 @@
 import React from 'react';
-import jul from "../images/unnamed.jpg";
+import jul from "https://avatars2.githubusercontent.com/u/30557565";
 import profileData from "../profile.json";
 import { Chip,Avatar} from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
