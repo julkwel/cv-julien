@@ -24,7 +24,7 @@ export default function Cv() {
                             </div>
                         </div>
                         <hr/>
-                        <h5>Web developer</h5>
+                        <h5>FullStack Symfony and JavaScript developer</h5>
                         <span>{profileData.profile.me}</span>
                     </div>
                 </div>
