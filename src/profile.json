@@ -26,8 +26,13 @@
     "experience": [
         {
             "entreprise":"Bocasay",
-            "post": "( Actual Under Contract ) PHP (Symfony) and Javascript Developer , started at 2th July 2019",
-            "stack":"PHP , Javascript, Symfony , Ajax , JQuery , Bootstrap , MongoDB, MySQL, ElasticSearch , RabbitMQ"
+            "post": "( Actual Under Contract ) Lead PHP Developer , started at April 2021",
+            "stack":"Team manager, Task Dispatcher, Developer"
+        },
+        {
+            "entreprise":"Bocasay",
+            "post": "PHP & Javascript Developer , started at 2th July 2019",
+            "stack":"PHP, Javascript, Symfony, Ajax, JQuery, Bootstrap, Python , MongoDB, MySQL, ElasticSearch, RabbitMQ"
         },
         {
             "entreprise":"Freelance",
