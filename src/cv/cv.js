@@ -34,9 +34,6 @@ export default function Cv() {
                         <h4>Full Name</h4>
                         {profileData.profile.nom + ' ' + profileData.profile.prenom}
                         <hr/>
-                        <h4>Born</h4>
-                        {profileData.profile.dn}
-                        <hr/>
                         <h4>Email</h4>
                         {profileData.profile.email}
                         <hr/>
