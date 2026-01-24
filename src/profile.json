@@ -7,8 +7,8 @@
         "phone": "+261 32 94 730 33",
         "ln": "Miarinarivo",
         "email": "julienrajerison5@gmail.com",
-        "me": "Work at Bocasay as PHP (Symfony) and JavaScript Developer , Founder of Techzara Madagascar , Passionate about linux and latest new Technologies.",
-        "cvLink":"https://docs.google.com/document/d/1ZnF-1bOzELzmAyvt4msIPfLGY-PLYCQuLmYVi61aVyo/edit?usp=sharing",
+        "me": "PHP (Symfony) and JavaScript Developer , Founder of Techzara Madagascar , Passionate about linux and latest new Technologies.",
+        "cvLink":"https://docs.google.com/document/d/1S-WBXOYYyaRa0ouOKUieaQQf_FWTSYTOUIlQg6pLPqg/edit?usp=sharing",
         "githubLink":"https://github.com/julkwel"
     },
     "network": {
@@ -18,20 +18,24 @@
         "stackoverflow": "https://stackoverflow.com/users/10462455/julien-rajerison"
     },
     "education": {
-        "emedia": "Webmaster With Very Good Mention",
-        "cntemad": "DTS in Computerized Management",
-        "me": "Self-Taught",
-        "self": "90% of my skills are through by my research and my experience"
+        "emedia": "Master II en Management des Systèmes d’Information",
+        "cntemad": "DTS in Management",
+        "self": "90% of my skills are through by my research, practices and experiences"
     },
     "experience": [
         {
+            "entreprise":"Freelance",
+            "post": "PHP/Symfony developer",
+            "stack":"PHP, JavaScript, React, Next.js"
+        },
+        {
             "entreprise":"Bocasay",
-            "post": "( Actual Under Contract ) Lead PHP Developer , started at April 2021",
+            "post": "( Actual Under Contract ) Lead PHP Developer , started from April 2021",
             "stack":"Team manager, Task Dispatcher, Developer"
         },
         {
             "entreprise":"Bocasay",
-            "post": "PHP & Javascript Developer , started at 2th July 2019",
+            "post": "PHP & Javascript Developer , started from 2th July 2019",
             "stack":"PHP, Javascript, Symfony, Ajax, JQuery, Bootstrap, Python , MongoDB, MySQL, ElasticSearch, RabbitMQ"
         },
         {
