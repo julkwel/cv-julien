@@ -542,6 +542,8 @@ ul {
   gap: 1rem;
 }
 .site-footer a {
+  display: inline-block;
+  padding-block: 0.5rem;
   text-decoration: none;
 }
 .site-footer a:hover {

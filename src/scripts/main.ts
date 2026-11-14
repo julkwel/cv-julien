@@ -136,7 +136,8 @@ function activeNav() {
     },
     { rootMargin: '-45% 0px -50% 0px' },
   );
-  map.forEach((_, id) => {
+  // The hero has no nav link: observing it clears the highlight when scrolling back to the top.
+  [...map.keys(), 'top'].forEach((id) => {
     const s = document.getElementById(id);
     if (s) io.observe(s);
   });

@@ -341,7 +341,7 @@ const jobs = [
     z-index: 1;
     transform: translateX(-50%);
     white-space: nowrap;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
   }
   [data-parallax] {
     --py: 0px;
@@ -807,8 +807,46 @@ const jobs = [
       left: 0;
       top: 0;
     }
+    .feature-visual {
+      padding-block: 2.5rem 3.5rem;
+    }
     .float-pill--b {
-      bottom: 0.75rem;
+      bottom: 1.6rem;
+    }
+    .bb-win {
+      transform: translateY(var(--py)) rotate(-0.75deg);
+    }
+    .as-win {
+      transform: translateY(var(--py)) rotate(0.75deg);
+    }
+  }
+  @media (max-width: 420px) {
+    /* Three narrow columns squeeze the labels: one row per metric instead. */
+    .metrics {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .metrics > div,
+    .metrics > div + div {
+      padding: 0.8rem 0;
+      border-left: 0;
+    }
+    .metrics > div + div {
+      border-top: 1px solid var(--line);
+    }
+    .metrics dd {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.9rem;
+    }
+    .metric-val {
+      min-width: 2.6rem;
+      font-size: 2.2rem;
+    }
+    .as-apply {
+      display: none;
+    }
+    .as-filters {
+      flex-wrap: wrap;
     }
   }
 </style>

@@ -5,7 +5,7 @@ import { profile, socials } from '../data/profile';
 <section class="section contact" id="contact" aria-labelledby="contact-title">
   <div class="wrap">
     <p class="eyebrow mono" data-reveal><span class="num">05</span> Contact</p>
-    <Split id="contact-title" class="contact-title" text="Un projet en tête ? *Parlons-en.*" />
+    <Split id="contact-title" class="contact-title" text="Un projet en tête ? *Parlons-en.*" />
 
     <div class="mail-row" data-reveal style="--d:2">
       <a class="mail" href={`mailto:${profile.email}`} data-magnetic>
@@ -69,7 +69,8 @@ import { profile, socials } from '../data/profile';
     gap: 0.6rem;
     max-width: 100%;
     font-family: var(--font-display);
-    font-size: clamp(1.35rem, 0.6rem + 3.4vw, 3.6rem);
+    /* Sized so the address fits on one line down to 320px. */
+    font-size: clamp(1.1rem, 0.2rem + 4.5vw, 3.6rem);
     letter-spacing: -0.03em;
     text-decoration: none;
     transform: translate(var(--x), var(--y));
