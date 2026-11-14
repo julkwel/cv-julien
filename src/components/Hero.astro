@@ -16,7 +16,7 @@ import { builds, profile } from '../data/profile';
     <h1 class="hero-title" id="hero-title" aria-label={`${profile.firstName} ${profile.lastName}, ${profile.role}`}>
       <span class="line" aria-hidden="true"><span class="ln-in">Julien</span></span>
       <span class="line line--2" aria-hidden="true">
-        <span class="ln-in"><span class="italic">Rajerison</span><span class="accent">.</span></span>
+        <span class="ln-in">Rajerison<span class="accent">.</span></span>
       </span>
     </h1>
 
@@ -128,11 +128,11 @@ import { builds, profile } from '../data/profile';
   }
 
   .hero-title {
+    font-family: var(--font-name);
     font-size: clamp(4rem, min(1rem + 14vw, 26svh), 15.5rem);
-    line-height: 0.86;
-    letter-spacing: -0.055em;
-    font-weight: 380;
-    font-variation-settings: 'opsz' 144;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    font-weight: 500;
     margin-left: -0.05em;
   }
   .line {
@@ -185,11 +185,15 @@ import { builds, profile } from '../data/profile';
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    container-type: inline-size;
   }
   .typer {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem);
+    /* One line at every width: the longest phrase ("des plateformes de recrutement")
+       is ~14em wide with the caret, so cap the size to the column (≈ 100 / 14.4). */
+    font-size: min(clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem), 6.9cqi);
+    white-space: nowrap;
     line-height: 1.1;
     min-height: 1.1em;
   }
