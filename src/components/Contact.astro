@@ -28,7 +28,12 @@ import { profile, socials } from '../data/profile';
       <ul class="socials" data-reveal style="--d:4" aria-label="Réseaux">
         {socials.map((s) => (
           <li>
-            <a href={s.href} target="_blank" rel="noopener noreferrer me">
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer me"
+              aria-label={`${s.label} : profil de Julien Rajerison (${s.handle}), s’ouvre dans un nouvel onglet`}
+            >
               <span class="s-label">{s.label}</span>
               <span class="s-handle mono muted">{s.handle}</span>
               <span class="s-arrow" aria-hidden="true">↗</span>

@@ -22,7 +22,7 @@ export const socials = [
   { label: 'GitHub', handle: '@julkwel', href: 'https://github.com/julkwel' },
   { label: 'LinkedIn', handle: 'julien-rajerison', href: 'https://www.linkedin.com/in/julien-rajerison-433715bb/' },
   { label: 'Stack Overflow', handle: 'julien-rajerison', href: 'https://stackoverflow.com/users/10462455/julien-rajerison' },
-  { label: 'Facebook', handle: 'julkwel', href: 'https://facebook.com/julkwel' },
+  { label: 'Facebook', handle: 'jul.rajerison', href: 'https://www.facebook.com/jul.rajerison/' },
 ];
 
 /** Words cycled in the hero: what Julien builds (all taken from real projects). */
