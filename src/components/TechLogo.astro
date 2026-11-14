@@ -1,0 +1,21 @@
+---
+/**
+ * One technology logo (monochrome, currentColor). Renders nothing when the
+ * technology has no logo: callers show its name as text instead.
+ * `label` gives the svg an accessible name; without it the svg is decorative.
+ */
+import { techIcon } from '../data/techIcons';
+
+interface Props {
+  name: string;
+  label?: string;
+  class?: string;
+}
+const { name, label, class: className } = Astro.props;
+const icon = techIcon(name);
+---
+{icon && (
+  label
+    ? <svg class={className} viewBox={icon.viewBox} role="img" aria-label={label} fill="currentColor"><path d={icon.path} /></svg>
+    : <svg class={className} viewBox={icon.viewBox} aria-hidden="true" focusable="false" fill="currentColor"><path d={icon.path} /></svg>
+)}

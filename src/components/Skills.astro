@@ -1,7 +1,8 @@
 ---
 import Split from './Split.astro';
 import { skills } from '../data/profile';
-import { techIcons } from '../data/techIcons';
+import TechLogo from './TechLogo.astro';
+import { techIcon } from '../data/techIcons';
 
 const icons: Record<string, string> = {
   ai: 'M12 2v3M12 19v3M5 12H2M22 12h-3M7 7h10v10H7zM10 10h4v4h-4z',
@@ -37,18 +38,18 @@ const icons: Record<string, string> = {
           <h3>{g.title}</h3>
           <p class="muted">{g.blurb}</p>
           <div class="tech">
-            {g.items.some((s) => techIcons[s]) && (
+            {g.items.some((s) => techIcon(s)) && (
               <ul class="logos" aria-label={`Technologies ${g.title}`}>
-                {g.items.filter((s) => techIcons[s]).map((s) => (
+                {g.items.filter((s) => techIcon(s)).map((s) => (
                   <li class="logo" data-label={s}>
-                    <svg viewBox={techIcons[s].viewBox} role="img" aria-label={s} fill="currentColor"><path d={techIcons[s].path} /></svg>
+                    <TechLogo name={s} label={s} />
                   </li>
                 ))}
               </ul>
             )}
-            {g.items.some((s) => !techIcons[s]) && (
+            {g.items.some((s) => !techIcon(s)) && (
               <ul class="chips" aria-label={`Pratiques ${g.title}`}>
-                {g.items.filter((s) => !techIcons[s]).map((s) => <li>{s}</li>)}
+                {g.items.filter((s) => !techIcon(s)).map((s) => <li>{s}</li>)}
               </ul>
             )}
           </div>
@@ -158,7 +159,7 @@ const icons: Record<string, string> = {
     color: var(--ink);
     transition: transform 0.3s var(--ease-out), border-color 0.3s;
   }
-  .logo svg {
+  .logo :global(svg) {
     width: 1.4rem;
     height: 1.4rem;
   }

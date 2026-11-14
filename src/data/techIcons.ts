@@ -66,3 +66,13 @@ export const techIcons: Record<string, TechIcon> = {
   Android: si(siAndroid),
   'Firebase Cloud Messaging': si(siFirebase),
 };
+
+/** Short names used elsewhere (hero marquee) that point to a skills label above. */
+const aliases: Record<string, string> = {
+  React: 'React 19',
+  'Next.js': 'Next.js 16 (App Router)',
+  Docker: 'Docker & Compose',
+};
+
+/** Logo for a label or one of its aliases; undefined when there is none (render text). */
+export const techIcon = (name: string): TechIcon | undefined => techIcons[name] ?? techIcons[aliases[name]];

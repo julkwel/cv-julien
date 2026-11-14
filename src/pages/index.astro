@@ -7,6 +7,7 @@ import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
 import Journey from '../components/Journey.astro';
 import Contact from '../components/Contact.astro';
+import TechLogo from '../components/TechLogo.astro';
 import { profile } from '../data/profile';
 
 const marquee = ['Symfony', 'TypeScript', 'Next.js', 'React', 'Prisma', 'PostgreSQL', 'Docker', 'Claude Code', 'Linux', 'Vitest'];
@@ -19,7 +20,9 @@ const year = new Date().getFullYear();
     <div class="marquee" aria-hidden="true">
       {[0, 1].map(() => (
         <div class="marquee__track">
-          {marquee.map((m) => <span class="marquee__item">{m}</span>)}
+          {marquee.map((m) => (
+            <span class="marquee__item"><TechLogo name={m} class="marquee__logo" />{m}</span>
+          ))}
         </div>
       ))}
     </div>
