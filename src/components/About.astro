@@ -1,0 +1,231 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/julien.jpg';
+import Split from './Split.astro';
+import { qualities, education, certificates } from '../data/profile';
+---
+<section class="section about" id="about" aria-labelledby="about-title">
+  <div class="wrap about-grid">
+    <div class="about-photo" data-reveal>
+      <figure class="polaroid" data-tilt>
+        <Image
+          src={portrait}
+          alt="Portrait de Julien Rajerison, bras croisés, t-shirt rouge aux baobabs"
+          widths={[320, 520, 760]}
+          sizes="(max-width: 760px) 80vw, 380px"
+          loading="lazy"
+          format="webp"
+          quality={78}
+        />
+        <figcaption class="mono">
+          <span>Tana, MG</span><span>18.91°S 47.52°E</span>
+        </figcaption>
+      </figure>
+      <span class="sticker" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
+          <text><textPath href="#circ">fondateur de techzara ✳ autodidacte ✳ </textPath></text>
+        </svg>
+        <span class="sticker-core">✳</span>
+      </span>
+    </div>
+
+    <div class="about-text">
+      <p class="eyebrow mono" data-reveal><span class="num">01</span> À propos</p>
+      <Split
+        id="about-title"
+        class="section-title"
+        text="Du serveur au pixel, *sans raccourci.*"
+      />
+      <div class="about-body">
+        <p data-reveal style="--d:1">
+          Je suis Julien, développeur fullstack à Antananarivo. J’ai commencé avec PHP et Symfony, j’ai mené des équipes
+          comme <strong>Lead PHP Developer chez Bocasay</strong>, et je construis aujourd’hui des produits complets en{' '}
+          <strong>TypeScript, React et Next.js</strong>, jusqu’au déploiement Docker sur mes propres serveurs.
+        </p>
+        <p data-reveal style="--d:2">
+          Je suis aussi le fondateur de <strong>Techzara Madagascar</strong>. Passionné de Linux et de nouvelles
+          technologies, j’ai appris 90&nbsp;% de ce que je sais en cherchant, en pratiquant et en livrant. Aujourd’hui je
+          travaille aussi avec des agents IA, cadrés par des tests et du lint, pour livrer plus vite sans baisser la
+          qualité.
+        </p>
+      </div>
+
+      <ul class="qualities" aria-label="Qualités" data-reveal style="--d:3">
+        {qualities.map((q) => <li>{q}</li>)}
+      </ul>
+
+      <dl class="facts" data-reveal style="--d:4">
+        {education.map((e) => (
+          <div>
+            <dt class="mono muted">Formation</dt>
+            <dd>{e.title} <span class="muted">· {e.school}</span></dd>
+          </div>
+        ))}
+        {certificates.map((c) => (
+          <div>
+            <dt class="mono muted">Certification</dt>
+            <dd><a href={c.href} target="_blank" rel="noopener noreferrer" class="link">{c.label} (SkillValue)</a></dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+  }
+  .about-photo {
+    position: sticky;
+    top: 7rem;
+  }
+  .polaroid {
+    --rx: 0deg;
+    --ry: 0deg;
+    margin: 0;
+    padding: 0.8rem 0.8rem 0;
+    background: var(--bg-3);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.5);
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) rotate(-2.5deg);
+    transition: transform 0.6s var(--ease-out);
+    max-width: 380px;
+  }
+  .polaroid :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 3px;
+    filter: saturate(0.92) contrast(1.03);
+  }
+  .polaroid figcaption {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.85rem 0.15rem 0.9rem;
+    color: var(--ink-2);
+    font-size: 0.7rem;
+  }
+  .sticker {
+    position: absolute;
+    right: max(-1rem, calc(100% - 380px - 2.5rem));
+    bottom: 2.5rem;
+    width: 7.5rem;
+    height: 7.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .sticker svg {
+    position: absolute;
+    inset: 0;
+    animation: spin 18s linear infinite;
+  }
+  .sticker text {
+    font-family: var(--font-mono);
+    font-size: 10.4px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    fill: currentColor;
+  }
+  .sticker-core {
+    font-size: 1.6rem;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .about-text {
+    display: grid;
+    gap: 2rem;
+  }
+  .about-text :global(.section-title) {
+    max-width: 12ch;
+  }
+  .about-body {
+    display: grid;
+    gap: 1.2rem;
+    font-size: 1.12rem;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+  .about-body strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .qualities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .qualities li {
+    padding: 0.45rem 0.95rem;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .qualities li:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .facts {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+  .facts div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .facts dt {
+    padding-top: 0.2rem;
+  }
+  .facts dd {
+    margin: 0;
+  }
+  .link {
+    text-decoration: none;
+    background: linear-gradient(currentColor 0 0) no-repeat 0 100% / 100% 1px;
+    transition: background-size 0.4s var(--ease-out);
+  }
+  .link:hover {
+    background-size: 0 1px;
+    background-position: 100% 100%;
+  }
+  @media (max-width: 860px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .about-photo {
+      position: relative;
+      top: 0;
+      max-width: 340px;
+      margin-inline: auto;
+      width: 85%;
+    }
+    .sticker {
+      right: -1.5rem;
+      width: 6.25rem;
+      height: 6.25rem;
+    }
+    .facts div {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+</style>

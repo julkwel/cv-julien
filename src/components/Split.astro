@@ -1,0 +1,29 @@
+---
+/** Heading whose words slide up when revealed. Segments wrapped in *stars* render in italic accent. */
+interface Props {
+  text: string;
+  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
+  class?: string;
+  id?: string;
+  base?: number;
+}
+const { text, as: Tag = 'h2', class: cls = '', id, base = 0 } = Astro.props;
+const words: { w: string; em: boolean }[] = [];
+let em = false;
+for (const raw of text.split(' ')) {
+  let w = raw;
+  const start = w.startsWith('*');
+  if (start) { em = true; w = w.slice(1); }
+  const end = w.endsWith('*');
+  if (end) w = w.slice(0, -1);
+  words.push({ w, em });
+  if (end) em = false;
+}
+---
+<Tag class:list={['split', cls]} id={id} aria-label={text.replaceAll('*', '')} data-split style={`--base:${base}ms`}>
+  {words.map(({ w, em }, i) => (
+    <>
+      <span class="w" aria-hidden="true"><span class:list={[{ italic: em, accent: em }]} style={`--i:${i}`}>{w}</span></span>{' '}
+    </>
+  ))}
+</Tag>

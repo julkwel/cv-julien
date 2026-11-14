@@ -1,32 +1,16 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/76fc8d86-c1cd-4c80-acbd-ab7917d8dc32/deploy-status)](https://app.netlify.com/sites/cvjulien/deploys)
+# julkwel.netlify.app — portfolio de Julien Rajerison
 
-## Available Scripts
+Site statique [Astro](https://astro.build), sans framework côté client : HTML/CSS, un seul petit script TypeScript pour les interactions.
 
-In the project directory, you can run:
+- Contenu : `src/data/profile.ts` (expériences, compétences, projets, contacts)
+- Sections : `src/components/*.astro` · styles globaux : `src/styles/global.css` · interactions : `src/scripts/main.ts`
+- Thème clair/sombre, `prefers-reduced-motion` respecté, polices auto-hébergées (Fraunces, Inter, JetBrains Mono)
 
-`yarn install` or `npm install`
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # astro check + build dans build/
+npm run preview
+```
 
-Then run :
-
-`yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-`yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-`yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-*Make cool things*
+Déploiement : un push sur `master` déclenche Netlify (`netlify.toml` : `npm run build`, publication de `build/`, Node 24).

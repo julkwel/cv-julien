@@ -1,0 +1,269 @@
+---
+import { builds, profile } from '../data/profile';
+---
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <canvas class="hero-field" id="field" aria-hidden="true"></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-meta mono" data-reveal style="--d:0">
+      <span class="status"><span class="dot" aria-hidden="true"></span> Disponible pour des missions</span>
+      <span class="hero-loc">
+        {profile.city}, MG — <time id="clock" class="tabular">--:--</time> <span class="muted">UTC+3</span>
+      </span>
+    </div>
+
+    <h1 class="hero-title" id="hero-title" aria-label={`${profile.firstName} ${profile.lastName}, ${profile.role}`}>
+      <span class="line" aria-hidden="true"><span class="ln-in">Julien</span></span>
+      <span class="line line--2" aria-hidden="true">
+        <span class="ln-in"><span class="italic">Rajerison</span><span class="accent">.</span></span>
+      </span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-lede" data-reveal style="--d:4">
+        {profile.role} — <strong>{profile.headline}</strong>. Lead developer et fondateur de Techzara, je conçois
+        des produits web robustes, du serveur au pixel.
+      </p>
+
+      <p class="hero-builds" data-reveal style="--d:5">
+        <span class="mono muted">Je construis</span>
+        <span class="typer" id="typer" data-words={JSON.stringify(builds)} aria-live="off">{builds[0]}</span>
+      </p>
+
+      <div class="hero-cta" data-reveal style="--d:6">
+        <a class="btn btn--solid" href="#work" data-magnetic>
+          Voir les projets <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn" href="#contact" data-magnetic>Me contacter</a>
+      </div>
+    </div>
+
+    <a class="scroll-cue mono" href="#about" aria-label="Descendre vers la section À propos">
+      <span aria-hidden="true">Scroll</span>
+      <span class="scroll-line" aria-hidden="true"></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+  }
+  .hero-field {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.6s var(--ease-out);
+  }
+  .hero-field.is-on {
+    opacity: 1;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 70vmax;
+    height: 70vmax;
+    right: -25vmax;
+    top: -30vmax;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--glow), transparent);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 6rem;
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+    pointer-events: none;
+  }
+  .hero-inner :where(a, button, p, h1, span) {
+    pointer-events: auto;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-bottom: clamp(1.25rem, 3vh, 2.5rem);
+    color: var(--ink-2);
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+  }
+  .dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3ecf8e;
+  }
+  .dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: inherit;
+    animation: ping 2.2s var(--ease-out) infinite;
+  }
+  @keyframes ping {
+    to {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+
+  .hero-title {
+    font-size: clamp(4rem, min(1rem + 14vw, 26svh), 15.5rem);
+    line-height: 0.86;
+    letter-spacing: -0.055em;
+    font-weight: 380;
+    font-variation-settings: 'opsz' 144;
+    margin-left: -0.05em;
+  }
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.06em;
+  }
+  .line--2 {
+    padding-left: clamp(0rem, 9vw, 10rem);
+  }
+  .ln-in {
+    display: inline-block;
+  }
+  :global(.js) .ln-in {
+    transform: translateY(110%) rotate(4deg);
+    transform-origin: 0 100%;
+    animation: rise 1.3s var(--ease-out) forwards;
+  }
+  :global(.js) .line--2 .ln-in {
+    animation-delay: 0.12s;
+  }
+  @keyframes rise {
+    to {
+      transform: none;
+    }
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'lede builds'
+      'lede cta';
+    gap: 1.5rem clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    margin-top: clamp(1.5rem, 4vh, 3rem);
+  }
+  .hero-lede {
+    grid-area: lede;
+    max-width: 44ch;
+    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+    color: var(--ink-2);
+  }
+  .hero-lede strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .hero-builds {
+    grid-area: builds;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .typer {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem);
+    line-height: 1.1;
+    min-height: 1.1em;
+  }
+  .typer::after {
+    content: '';
+    display: inline-block;
+    width: 0.06em;
+    height: 0.9em;
+    margin-left: 0.08em;
+    vertical-align: -0.08em;
+    background: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  .hero-cta {
+    grid-area: cta;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .scroll-cue {
+    position: absolute;
+    right: var(--pad);
+    bottom: clamp(2rem, 5vw, 3.5rem);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--ink-2);
+    writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 4rem;
+    background: linear-gradient(var(--ink) 0 0) no-repeat 0 0 / 100% 30%, var(--line-2);
+    animation: drip 2.4s var(--ease-in-out) infinite;
+  }
+  @keyframes drip {
+    0% {
+      background-position: 0 -40%;
+    }
+    100% {
+      background-position: 0 160%;
+    }
+  }
+  @media (min-width: 1100px) {
+    .scroll-cue {
+      display: flex;
+    }
+    .hero-bottom {
+      padding-right: 4rem;
+    }
+  }
+  @media (max-width: 760px) {
+    .hero-bottom {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'lede' 'builds' 'cta';
+    }
+    .line--2 {
+      padding-left: 0;
+    }
+    .hero-title {
+      font-size: 21vw;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .ln-in {
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

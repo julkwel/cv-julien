@@ -1,0 +1,183 @@
+---
+import Split from './Split.astro';
+import { skills } from '../data/profile';
+
+const icons: Record<string, string> = {
+  front: 'M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01',
+  back: 'M5 4h14v6H5zM5 14h14v6H5zM8 7h.01M8 17h.01',
+  data: 'M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6',
+  security: 'M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6zM9 12l2 2 4-4',
+  ops: 'M4 17l6-6-6-6M12 19h8',
+  quality: 'M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9',
+  mobile: 'M7 2h10v20H7zM11 18h2',
+};
+---
+<section class="section skills" id="skills" aria-labelledby="skills-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow mono" data-reveal><span class="num">02</span> Compétences</p>
+      <Split id="skills-title" class="section-title" text="Une boîte à outils *de bout en bout.*" />
+      <p class="section-lede" data-reveal style="--d:2">
+        Issues de projets réellement livrés : du schéma de base de données au paiement Mobile Money, du back office à
+        la mise en production.
+      </p>
+    </div>
+
+    <ul class="bento" data-spotlight>
+      {skills.map((g, i) => (
+        <li class:list={['card', `card--${g.id}`, { 'card--accent': g.accent }]} data-reveal style={`--d:${i % 3}`}>
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={icons[g.id]} /></svg>
+            </span>
+            <span class="mono muted">{String(i + 1).padStart(2, '0')} / {String(skills.length).padStart(2, '0')}</span>
+          </div>
+          <h3>{g.title}</h3>
+          <p class="muted">{g.blurb}</p>
+          <ul class="chips" aria-label={`Compétences ${g.title}`}>
+            {g.items.map((s) => <li>{s}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .card {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.4s, transform 0.5s var(--ease-out);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(420px circle at var(--mx) var(--my), var(--glow), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .card:hover {
+    border-color: var(--line-2);
+  }
+  .card:hover::before {
+    opacity: 1;
+  }
+  .card--front {
+    grid-column: span 3;
+  }
+  .card--back {
+    grid-column: span 3;
+  }
+  .card--data,
+  .card--security,
+  .card--ops {
+    grid-column: span 2;
+  }
+  .card--quality {
+    grid-column: span 4;
+  }
+  .card--mobile {
+    grid-column: span 2;
+  }
+  .card--accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+  }
+  .card--accent .muted {
+    color: inherit;
+    opacity: 0.85;
+  }
+  .card--accent::before {
+    background: radial-gradient(420px circle at var(--mx) var(--my), rgb(255 255 255 / 0.2), transparent 60%);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .card-icon {
+    display: grid;
+    place-items: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 12px;
+    border: 1px solid currentColor;
+    opacity: 0.9;
+    transition: transform 0.6s var(--ease-out);
+  }
+  .card-icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .card:hover .card-icon {
+    transform: rotate(-8deg) scale(1.06);
+  }
+  .card h3 {
+    font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem);
+    font-variation-settings: 'opsz' 144;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+  .chips li {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--line-2);
+    font-size: 0.83rem;
+    line-height: 1.3;
+    transition: transform 0.3s var(--ease-out), background-color 0.3s;
+  }
+  .card--accent .chips li {
+    border-color: rgb(0 0 0 / 0.25);
+  }
+  [data-theme='light'] .card--accent .chips li {
+    border-color: rgb(255 255 255 / 0.4);
+  }
+  .chips li:hover {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+  @media (max-width: 1000px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .card[class*='card--'] {
+      grid-column: span 1;
+    }
+    .card--front,
+    .card--quality {
+      grid-column: span 2 !important;
+    }
+  }
+  @media (max-width: 620px) {
+    .bento {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .card[class*='card--'] {
+      grid-column: span 1 !important;
+    }
+  }
+</style>

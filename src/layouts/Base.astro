@@ -1,0 +1,85 @@
+---
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/fraunces/opsz-italic.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import frauncesUrl from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
+import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import { SITE_URL, profile, socials } from '../data/profile';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImage = new URL('/og.jpg', SITE_URL).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `${profile.firstName} ${profile.lastName}`,
+  jobTitle: `${profile.role} — ${profile.headline}`,
+  url: SITE_URL,
+  image: new URL('/logo.jpg', SITE_URL).href,
+  address: { '@type': 'PostalAddress', addressLocality: profile.city, addressCountry: 'MG' },
+  sameAs: socials.map((s) => s.href),
+  knowsAbout: ['PHP', 'Symfony', 'TypeScript', 'React', 'Next.js', 'Prisma', 'PostgreSQL', 'Docker'],
+};
+---
+
+<!doctype html>
+<html lang="fr" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Julien Rajerison" />
+    <link rel="canonical" href={canonical} />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/logo.jpg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href={frauncesUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Julien Rajerison" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Julien Rajerison, développeur fullstack à Madagascar" />
+    <meta property="profile:first_name" content="Julien" />
+    <meta property="profile:last_name" content="Rajerison" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Apply the saved / system theme before first paint (no flash). -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+        document.documentElement.classList.add('js');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Aller au contenu</a>
+    <slot />
+  </body>
+</html>

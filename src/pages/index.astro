@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Journey from '../components/Journey.astro';
+import Contact from '../components/Contact.astro';
+import { profile } from '../data/profile';
+
+const marquee = ['Symfony', 'TypeScript', 'Next.js', 'React', 'Prisma', 'PostgreSQL', 'Docker', 'Mobile Money', 'Linux', 'Vitest'];
+const year = new Date().getFullYear();
+---
+<Base title="Julien Rajerison — Développeur fullstack Symfony, TypeScript & Next.js" description={profile.description}>
+  <Header />
+  <main id="main">
+    <Hero />
+    <div class="marquee" aria-hidden="true">
+      {[0, 1].map(() => (
+        <div class="marquee__track">
+          {marquee.map((m) => <span class="marquee__item">{m}</span>)}
+        </div>
+      ))}
+    </div>
+    <About />
+    <Skills />
+    <Projects />
+    <Journey />
+    <Contact />
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© {year} Julien Rajerison — Antananarivo, Madagascar</p>
+      <p class="mono">Conçu &amp; codé à la main · Astro · Netlify</p>
+      <a href="#top" class="mono">Haut de page ↑</a>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    import { init } from '../scripts/main';
+    init();
+  </script>
+</Base>

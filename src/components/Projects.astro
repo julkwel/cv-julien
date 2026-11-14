@@ -1,0 +1,652 @@
+---
+import Split from './Split.astro';
+import { projects } from '../data/profile';
+
+const [featured, ...others] = projects;
+const covers = [
+  { bg: '#f7c9d4', t: 'Ny Ala' },
+  { bg: '#c9e4d6', t: 'Lalana' },
+  { bg: '#d9d2f5', t: 'Kintana' },
+  { bg: '#fbe2b8', t: 'Ranomasina' },
+];
+---
+<section class="section work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow mono" data-reveal><span class="num">03</span> Projets</p>
+      <Split id="work-title" class="section-title" text="Des produits, *pas des maquettes.*" />
+      <p class="section-lede" data-reveal style="--d:2">
+        Une sélection de projets que j’ai conçus et développés. Chacun se déplie en cas d’étude : le contexte, les
+        défis, les choix techniques, le résultat.
+      </p>
+    </div>
+
+    <!-- Featured case study -->
+    {featured && (
+      <article class="feature" aria-labelledby="cs-bloom">
+        <div class="feature-text">
+          <div class="feature-kicker mono" data-reveal>
+            <span class="accent">Cas d’étude</span><span class="muted">{featured.kind}</span>
+          </div>
+          <h3 id="cs-bloom" class="feature-title" data-reveal style="--d:1">{featured.name}</h3>
+          <p class="feature-tag" data-reveal style="--d:2">{featured.tagline}</p>
+
+          <dl class="metrics" data-reveal style="--d:3">
+            {featured.metrics?.map((m) => (
+              <div>
+                <dt class="sr-only">{m.label}</dt>
+                <dd><span class="metric-val" data-count={m.value}>{m.value}</span><span class="metric-label">{m.label}</span></dd>
+              </div>
+            ))}
+          </dl>
+
+          <div class="cs" data-reveal style="--d:4">
+            <div class="cs-block">
+              <h4 class="mono">Contexte</h4>
+              <p>{featured.caseStudy.context}</p>
+            </div>
+            <div class="cs-block">
+              <h4 class="mono">Défis</h4>
+              <ul class="ticks">{featured.caseStudy.challenges.map((c) => <li>{c}</li>)}</ul>
+            </div>
+            <div class="cs-block">
+              <h4 class="mono">Ce que j’ai construit</h4>
+              <ul class="ticks">{featured.caseStudy.solutions.map((c) => <li>{c}</li>)}</ul>
+            </div>
+            <div class="cs-block">
+              <h4 class="mono">Résultat</h4>
+              <ul class="ticks">{featured.caseStudy.outcome.map((c) => <li>{c}</li>)}</ul>
+            </div>
+          </div>
+
+          <ul class="stack" aria-label="Stack technique" data-reveal>
+            {featured.stack.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+
+        <figure class="feature-visual" data-reveal style="--d:2">
+          <div class="phone" aria-hidden="true" data-parallax>
+            <div class="phone-screen">
+              <div class="bb-top">
+                <span class="bb-logo">✿ Bloom Book</span>
+                <span class="bb-avatar"></span>
+              </div>
+              <div class="bb-search">Rechercher un livre…</div>
+              <div class="bb-grid">
+                {covers.map((c) => (
+                  <div class="bb-book">
+                    <div class="bb-cover" style={`background:${c.bg}`}><span>{c.t}</span></div>
+                    <span class="bb-line"></span>
+                    <span class="bb-line bb-line--s"></span>
+                  </div>
+                ))}
+              </div>
+              <div class="bb-sheet">
+                <span class="bb-sheet-title">Payer avec</span>
+                <div class="bb-pay">
+                  <span style="--c:#ffd93b">MVola</span>
+                  <span style="--c:#ff8a3d">Orange Money</span>
+                  <span style="--c:#ff5b5b">Airtel Money</span>
+                </div>
+                <div class="bb-actions">
+                  <span class="bb-btn bb-btn--ghost">Louer</span>
+                  <span class="bb-btn">Acheter</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-card" aria-hidden="true" data-parallax="-0.6">
+            <span class="mono">Admin</span>
+            <div class="admin-row"><span>Commandes</span><b></b></div>
+            <div class="admin-row"><span>Locations</span><b style="width:62%"></b></div>
+            <div class="admin-row"><span>Paiements</span><b style="width:80%"></b></div>
+          </div>
+          <div class="test-pill mono" aria-hidden="true" data-parallax="0.5">✓ 75 passed</div>
+          <figcaption class="mono muted">Illustration de l’interface</figcaption>
+        </figure>
+      </article>
+    )}
+
+    <!-- Other projects: expandable index -->
+    <ol class="index" aria-label="Autres projets">
+      {others.map((p, i) => (
+        <li class="row" data-reveal>
+          <details class="cs-details" name="project">
+            <summary>
+              <span class="row-num mono">{String(i + 2).padStart(2, '0')}</span>
+              <span class="row-name">{p.name}</span>
+              <span class="row-tag">{p.tagline}</span>
+              <span class="row-kind mono muted">{p.kind}</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </summary>
+            <div class="row-body">
+              <div class="row-grid">
+                <div>
+                  <p class="row-summary">{p.summary}</p>
+                  <p class="muted">{p.caseStudy.context}</p>
+                  {p.url && (
+                    <a class="btn row-link" href={p.url} target="_blank" rel="noopener noreferrer">
+                      Visiter {p.url.replace('https://', '')} <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                  )}
+                </div>
+                <div class="cs-mini">
+                  <div>
+                    <h4 class="mono">Défis</h4>
+                    <ul class="ticks">{p.caseStudy.challenges.map((c) => <li>{c}</li>)}</ul>
+                  </div>
+                  <div>
+                    <h4 class="mono">Solutions</h4>
+                    <ul class="ticks">{p.caseStudy.solutions.map((c) => <li>{c}</li>)}</ul>
+                  </div>
+                  <div>
+                    <h4 class="mono">Résultat</h4>
+                    <ul class="ticks">{p.caseStudy.outcome.map((c) => <li>{c}</li>)}</ul>
+                  </div>
+                </div>
+              </div>
+              <ul class="stack" aria-label={`Stack de ${p.name}`}>{p.stack.map((s) => <li>{s}</li>)}</ul>
+            </div>
+          </details>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* ---------- featured ---------- */
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 8px);
+    background:
+      radial-gradient(80% 60% at 100% 0%, var(--glow), transparent 70%),
+      var(--bg-2);
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+  .feature-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+  }
+  .feature-title {
+    font-size: clamp(3.2rem, 2rem + 6vw, 7.5rem);
+    font-variation-settings: 'opsz' 144;
+    letter-spacing: -0.045em;
+  }
+  .feature-tag {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.3rem, 1rem + 1vw, 1.8rem);
+    color: var(--ink-2);
+    margin-top: -0.6rem;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    border-block: 1px solid var(--line);
+  }
+  .metrics > div {
+    padding: 1.1rem 1rem 1.1rem 0;
+  }
+  .metrics > div + div {
+    padding-left: 1rem;
+    border-left: 1px solid var(--line);
+  }
+  .metrics dd {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .metric-val {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.8rem + 2vw, 3.6rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-ink);
+  }
+  .metric-label {
+    font-size: 0.85rem;
+    color: var(--ink-2);
+  }
+  .cs {
+    display: grid;
+    gap: 1.4rem;
+  }
+  .cs-block h4,
+  .cs-mini h4 {
+    font-size: 0.72rem;
+    color: var(--accent-ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+  .cs-block p {
+    color: var(--ink-2);
+  }
+  .ticks {
+    display: grid;
+    gap: 0.45rem;
+  }
+  .ticks li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-2);
+  }
+  .ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.65rem;
+    height: 1px;
+    background: var(--accent);
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .stack li {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    padding: 0.32rem 0.65rem;
+    border-radius: 6px;
+    background: var(--bg-3);
+    color: var(--ink);
+  }
+
+  /* ---------- illustrative phone ---------- */
+  .feature-visual {
+    position: relative;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    align-self: start;
+    position: sticky;
+    top: 6rem;
+    min-height: 600px;
+  }
+  .feature-visual figcaption {
+    position: absolute;
+    bottom: -1.25rem;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.68rem;
+  }
+  .phone {
+    --py: 0px;
+    width: min(300px, 78%);
+    aspect-ratio: 9 / 18.5;
+    padding: 10px;
+    border-radius: 44px;
+    background: #141210;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.08) inset,
+      0 50px 90px -40px rgb(0 0 0 / 0.7),
+      0 0 0 6px color-mix(in srgb, var(--ink) 6%, transparent);
+    transform: translateY(var(--py)) rotate(3deg);
+    transition: transform 0.2s linear;
+  }
+  .phone-screen {
+    position: relative;
+    height: 100%;
+    border-radius: 34px;
+    overflow: hidden;
+    background: #fff8f2;
+    color: #3b2f36;
+    font-family: var(--font-text);
+    container-type: inline-size;
+    padding: 1.6rem 0.9rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .bb-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bb-logo {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: #b8457a;
+  }
+  .bb-avatar {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f7c9d4, #d9d2f5);
+  }
+  .bb-search {
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    background: #f3e8ef;
+    font-size: 0.68rem;
+    color: #6a5a63;
+  }
+  .bb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .bb-book {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .bb-cover {
+    aspect-ratio: 3 / 3.4;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.5rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #3b2f36;
+    box-shadow: inset -6px 0 0 rgb(0 0 0 / 0.05);
+  }
+  @container (max-width: 270px) {
+    .bb-cover {
+      aspect-ratio: 3 / 2.4;
+    }
+    .bb-line--s {
+      display: none;
+    }
+  }
+  .bb-line {
+    height: 5px;
+    width: 80%;
+    border-radius: 3px;
+    background: #ead9e2;
+  }
+  .bb-line--s {
+    width: 45%;
+  }
+  .bb-sheet {
+    margin-top: auto;
+    margin-inline: -0.9rem;
+    padding: 0.9rem 0.9rem 1.2rem;
+    border-radius: 22px 22px 0 0;
+    background: #fff;
+    box-shadow: 0 -10px 30px rgb(184 69 122 / 0.12);
+    display: grid;
+    gap: 0.6rem;
+  }
+  .bb-sheet-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .bb-pay {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .bb-pay span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.62rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid #eadde4;
+  }
+  .bb-pay span::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--c);
+  }
+  .bb-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .bb-btn {
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 999px;
+    background: #b8457a;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .bb-btn--ghost {
+    background: #f3e8ef;
+    color: #b8457a;
+  }
+  .admin-card {
+    --py: 0px;
+    position: absolute;
+    left: -4%;
+    top: 22%;
+    width: 12rem;
+    padding: 1rem;
+    border-radius: 14px;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    box-shadow: 0 30px 50px -30px rgb(0 0 0 / 0.5);
+    display: grid;
+    gap: 0.55rem;
+    transform: translateY(var(--py)) rotate(-4deg);
+    font-size: 0.78rem;
+  }
+  .admin-card .mono {
+    color: var(--accent-ink);
+    font-size: 0.65rem;
+  }
+  .admin-row {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .admin-row b {
+    display: block;
+    height: 4px;
+    width: 45%;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  .test-pill {
+    --py: 0px;
+    position: absolute;
+    right: 0;
+    bottom: 14%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    background: #1f7a4d;
+    color: #fff;
+    font-size: 0.72rem;
+    transform: translateY(var(--py)) rotate(5deg);
+    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.6);
+  }
+
+  /* ---------- index ---------- */
+  .index {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .row {
+    border-bottom: 1px solid var(--line);
+  }
+  .cs-details summary {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 0.8fr) 2.5rem;
+    align-items: center;
+    gap: 1rem;
+    padding-block: clamp(1.4rem, 3vw, 2.2rem);
+    cursor: pointer;
+    list-style: none;
+    isolation: isolate;
+  }
+  .cs-details summary::-webkit-details-marker {
+    display: none;
+  }
+  .cs-details summary::before {
+    content: '';
+    position: absolute;
+    inset: 0 calc(var(--pad) * -1);
+    z-index: -1;
+    background: var(--bg-2);
+    transform: scaleY(0);
+    transform-origin: 50% 100%;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .cs-details summary:hover::before,
+  .cs-details[open] summary::before {
+    transform: none;
+  }
+  .row-name {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.3rem + 2.6vw, 3.8rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    transition: transform 0.5s var(--ease-out), color 0.3s;
+  }
+  .cs-details summary:hover .row-name {
+    transform: translateX(0.6rem);
+    font-style: italic;
+  }
+  .cs-details[open] .row-name {
+    color: var(--accent-ink);
+  }
+  .row-tag {
+    color: var(--ink-2);
+  }
+  .row-kind {
+    text-align: right;
+  }
+  .row-plus {
+    position: relative;
+    justify-self: end;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: 1px solid var(--line-2);
+    transition: transform 0.5s var(--ease-out), background-color 0.3s, border-color 0.3s;
+  }
+  .row-plus::before,
+  .row-plus::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.8rem;
+    height: 1.5px;
+    margin: -0.75px 0 0 -0.4rem;
+    background: currentColor;
+  }
+  .row-plus::after {
+    transform: rotate(90deg);
+  }
+  .cs-details summary:hover .row-plus {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .cs-details[open] .row-plus {
+    transform: rotate(135deg);
+  }
+  .cs-details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: block-size 0.6s var(--ease-out), content-visibility 0.6s allow-discrete;
+  }
+  .cs-details[open]::details-content {
+    block-size: auto;
+  }
+  .row-body {
+    padding: 0.5rem 0 2.5rem 4.5rem;
+    display: grid;
+    gap: 2rem;
+  }
+  .row-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+  .row-grid > div:first-child {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+  .row-summary {
+    font-size: 1.2rem;
+  }
+  .row-link {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+  .cs-mini {
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  @media (max-width: 1000px) {
+    .feature {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .feature-visual {
+      position: relative;
+      top: 0;
+      min-height: 0;
+      padding-bottom: 2.5rem;
+      order: -1;
+    }
+    .phone {
+      width: min(280px, 80%);
+    }
+  }
+  @media (max-width: 760px) {
+    .cs-details summary {
+      grid-template-columns: 2.2rem minmax(0, 1fr) 2.4rem;
+      grid-template-areas:
+        'num name plus'
+        '. tag tag';
+      row-gap: 0.4rem;
+    }
+    .row-num {
+      grid-area: num;
+    }
+    .row-name {
+      grid-area: name;
+    }
+    .row-tag {
+      grid-area: tag;
+    }
+    .row-plus {
+      grid-area: plus;
+    }
+    .row-kind {
+      display: none;
+    }
+    .row-body {
+      padding-left: 0;
+    }
+    .row-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .metrics > div + div {
+      padding-left: 0.75rem;
+    }
+    .admin-card {
+      width: 10.5rem;
+      font-size: 0.7rem;
+    }
+  }
+</style>
