@@ -19,5 +19,8 @@
   },
   "devDependencies": {
     "simple-icons": "^16.37.0"
+  },
+  "engines": {
+    "node": ">=22.23.4"
   }
 }
