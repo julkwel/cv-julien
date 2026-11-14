@@ -1,6 +1,6 @@
 ---
 import Split from './Split.astro';
-import { qualities, education, certificates } from '../data/profile';
+import { qualities } from '../data/profile';
 ---
 <section class="section about" id="about" aria-labelledby="about-title">
   <div class="wrap about-grid">
@@ -16,7 +16,8 @@ import { qualities, education, certificates } from '../data/profile';
     <div class="about-text">
       <div class="about-body">
         <p data-reveal style="--d:1">
-          Je suis Julien, développeur fullstack à Antananarivo. J’ai commencé avec PHP et Symfony, j’ai mené des équipes
+          Je suis Julien, développeur fullstack à Antananarivo, diplômé d’un <strong>Master II en Management des
+          Systèmes d’Information</strong> (eMedia). J’ai commencé avec PHP et Symfony, j’ai mené des équipes
           comme <strong>Lead PHP Developer chez Bocasay</strong>, et je construis aujourd’hui des produits complets en{' '}
           <strong>TypeScript, React et Next.js</strong>, jusqu’au déploiement Docker sur mes propres serveurs.
         </p>
@@ -31,21 +32,6 @@ import { qualities, education, certificates } from '../data/profile';
       <ul class="qualities" aria-label="Qualités" data-reveal style="--d:3">
         {qualities.map((q) => <li>{q}</li>)}
       </ul>
-
-      <dl class="facts" data-reveal style="--d:4">
-        {education.map((e) => (
-          <div>
-            <dt class="mono muted">Formation</dt>
-            <dd>{e.title} <span class="muted">· {e.school}</span></dd>
-          </div>
-        ))}
-        {certificates.map((c) => (
-          <div>
-            <dt class="mono muted">Certification</dt>
-            <dd><a href={c.href} target="_blank" rel="noopener noreferrer" class="link">{c.label} (SkillValue)</a></dd>
-          </div>
-        ))}
-      </dl>
     </div>
   </div>
 </section>
@@ -103,48 +89,12 @@ import { qualities, education, certificates } from '../data/profile';
     color: var(--bg);
     border-color: var(--ink);
   }
-  .facts {
-    display: grid;
-    gap: 0;
-    margin: 0;
-    border-top: 1px solid var(--line);
-  }
-  .facts div {
-    display: grid;
-    grid-template-columns: 9rem 1fr;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .facts dt {
-    padding-top: 0.2rem;
-  }
-  .facts dd {
-    margin: 0;
-  }
-  .facts dd a {
-    display: inline-block;
-    padding-block: 0.25rem;
-  }
-  .link {
-    text-decoration: none;
-    background: linear-gradient(currentColor 0 0) no-repeat 0 100% / 100% 1px;
-    transition: background-size 0.4s var(--ease-out);
-  }
-  .link:hover {
-    background-size: 0 1px;
-    background-position: 100% 100%;
-  }
   @media (max-width: 860px) {
     .about-grid {
       grid-template-columns: minmax(0, 1fr);
     }
     .about-head {
       position: static;
-    }
-    .facts div {
-      grid-template-columns: 1fr;
-      gap: 0.2rem;
     }
   }
 </style>

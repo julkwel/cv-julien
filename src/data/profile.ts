@@ -289,12 +289,3 @@ export const experience: Job[] = [
     stack: ['C#', 'HTML', 'CSS', 'JavaScript', 'MySQL'],
   },
 ];
-
-export const education = [
-  { title: 'Master II, Management des Systèmes d’Information', school: 'eMedia' },
-  { title: 'DTS en Management', school: 'CNTEMAD' },
-];
-
-export const certificates = [
-  { label: 'Bootstrap 4', href: 'https://skillvalue.com/fr/certificate/q7mDFFGYk2d6Yi9r30eh9EGa3b3bLib6esoaKXuu746LwzHspZfIWJjkfgkb' },
-];
