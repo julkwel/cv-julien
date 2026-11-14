@@ -357,7 +357,7 @@ function field() {
     atlas.width = c * glyphs.length;
     atlas.height = c * LEVELS * 2;
     actx.clearRect(0, 0, atlas.width, atlas.height);
-    actx.font = `${c * 0.78}px "JetBrains Mono Variable", ui-monospace, monospace`;
+    actx.font = `${c * 0.78}px ui-monospace, Menlo, Consolas, monospace`;
     actx.textAlign = 'center';
     actx.textBaseline = 'middle';
     for (let row = 0; row < LEVELS * 2; row++) {

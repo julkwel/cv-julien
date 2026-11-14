@@ -1,14 +1,14 @@
 /* ==========================================================================
    Julien Rajerison — portfolio
-   Editorial "dev notebook": Fraunces display, Inter text, JetBrains Mono labels.
+   Editorial "dev notebook", Google Sans throughout (system monospace for code samples).
    Accent: baobab red (the red tee of the portrait).
    ========================================================================== */
 
 :root {
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
-  --font-text: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-name: 'Google Sans Variable', 'Google Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* One family for the whole site (self-hosted, see Base.astro). */
+  --font-sans: 'Google Sans Variable', 'Google Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Code samples in the project mockups only: system monospace, nothing downloaded. */
+  --font-code: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -70,7 +70,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-text);
+  font-family: var(--font-sans);
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
   line-height: 1.6;
   font-feature-settings: 'ss01', 'cv11';
@@ -119,7 +119,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -174,7 +174,8 @@ ul {
 }
 
 .mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   font-size: 0.78rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -190,7 +191,6 @@ ul {
 
 .italic {
   font-style: italic;
-  font-variation-settings: 'opsz' 144;
 }
 
 /* ---------- scroll progress ---------- */
@@ -233,7 +233,7 @@ ul {
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 1.35rem;
   letter-spacing: -0.03em;
 }
@@ -349,7 +349,7 @@ ul {
   }
   .nav a {
     padding: 0.9rem 0;
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     font-size: 1.9rem;
     color: var(--ink);
     border-bottom: 1px solid var(--line);
@@ -373,7 +373,7 @@ ul {
   padding: 0.95rem 1.4rem;
   border-radius: 999px;
   border: 1px solid var(--line-2);
-  font-family: var(--font-text);
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 500;
   text-decoration: none;
@@ -442,7 +442,6 @@ ul {
 }
 .section-title {
   font-size: clamp(2.6rem, 1.6rem + 5vw, 6rem);
-  font-variation-settings: 'opsz' 144;
   max-width: 14ch;
 }
 .section-lede {
@@ -508,7 +507,7 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: clamp(1.5rem, 1rem + 2vw, 2.6rem);
   font-style: italic;
   white-space: nowrap;

@@ -128,7 +128,7 @@ import { builds, profile } from '../data/profile';
   }
 
   .hero-title {
-    font-family: var(--font-name);
+    font-family: var(--font-sans);
     font-size: clamp(4rem, min(1rem + 14vw, 26svh), 15.5rem);
     line-height: 0.9;
     letter-spacing: -0.045em;
@@ -188,11 +188,11 @@ import { builds, profile } from '../data/profile';
     container-type: inline-size;
   }
   .typer {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     font-style: italic;
     /* One line at every width: the longest phrase ("des plateformes de recrutement")
-       is ~14em wide with the caret, so cap the size to the column (≈ 100 / 14.4). */
-    font-size: min(clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem), 6.9cqi);
+       is ~14.9em wide with the caret, so cap the size to the column (≈ 100 / 15.1). */
+    font-size: min(clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem), 6.6cqi);
     white-space: nowrap;
     line-height: 1.1;
     min-height: 1.1em;
