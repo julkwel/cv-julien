@@ -1,7 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import avatar from '../assets/julien-avatar.jpg';
-
 const links = [
   { href: '#about', label: 'À propos' },
   { href: '#skills', label: 'Compétences' },
@@ -13,19 +10,9 @@ const links = [
 <div class="progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="#top">
-      <Image
-        class="brand-mark"
-        src={avatar}
-        alt="Photo de Julien Rajerison"
-        width={36}
-        height={36}
-        densities={[1, 2, 3]}
-        format="webp"
-        quality={80}
-        loading="eager"
-      />
-      <span>julkwel</span><span class="sr-only"> — haut de page</span>
+    <a class="brand" href="/#top">
+      <!-- Same file as the favicon (public/favicon.svg). -->
+      <img class="brand-mark" src="/favicon.svg" alt="Accueil" width="36" height="36" />
     </a>
     <nav class="nav" id="nav" aria-label="Navigation principale">
       {links.map((l) => <a href={l.href} data-nav>{l.label}</a>)}
