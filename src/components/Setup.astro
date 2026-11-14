@@ -1,0 +1,255 @@
+---
+/**
+ * « Un setup de travail fiable » : 4 cards, each with a small visual.
+ *
+ * Real photos: drop them in src/assets/setup/ (e.g. starlink.jpg), import them
+ * below and set `photo` on the card, e.g.
+ *   import starlinkPhoto from '../assets/setup/starlink.jpg';
+ *   { id: 'starlink', photo: starlinkPhoto, alt: 'L’antenne Starlink sur le toit', ... }
+ * A card with a `photo` renders it (optimised by astro:assets); otherwise it
+ * falls back to its SVG illustration.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Split from './Split.astro';
+
+interface SetupCard {
+  id: 'starlink' | 'solar' | 'uptime' | 'desk';
+  title: string;
+  text: string;
+  photo?: ImageMetadata;
+  alt?: string;
+}
+
+const cards: SetupCard[] = [
+  {
+    id: 'starlink',
+    title: 'Starlink',
+    text: 'Une connexion internet par satellite, stable au quotidien. Les visios, les déploiements et le travail à distance passent sans souci.',
+  },
+  {
+    id: 'solar',
+    title: 'Solaire + Jirama',
+    text: 'Des panneaux solaires en plus du réseau Jirama. Le courant ne dépend jamais d’une seule source.',
+  },
+  {
+    id: 'uptime',
+    title: 'Zéro coupure',
+    text: 'Quand la Jirama coupe, le solaire prend le relais. Pas d’écran noir en pleine réunion, pas de travail perdu.',
+  },
+  {
+    id: 'desk',
+    title: 'Un vrai bureau',
+    text: 'Un beau bureau, bien aménagé, dans une maison autonome. Un endroit où l’on a envie de se poser et de bien travailler.',
+  },
+];
+---
+<section class="section setup" id="setup" aria-labelledby="setup-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow mono" data-reveal><span class="num">02</span> Setup</p>
+      <Split id="setup-title" class="section-title" text="Un setup de travail *fiable.*" />
+      <p class="section-lede" data-reveal style="--d:2">
+        Je travaille depuis une maison autonome, équipée pour rester en ligne et sous tension. Vous gardez un
+        interlocuteur joignable, sans coupure.
+      </p>
+    </div>
+
+    <ul class="setup-grid">
+      {cards.map((c, i) => (
+        <li class:list={['setup-card', `setup-card--${c.id}`]} data-reveal style={`--d:${i}`}>
+          <div class="setup-media">
+            {c.photo ? (
+              <Image src={c.photo} alt={c.alt ?? ''} widths={[360, 720]} sizes="(max-width: 620px) 100vw, (max-width: 1100px) 50vw, 25vw" />
+            ) : (
+              <svg viewBox="0 0 240 150" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {c.id === 'starlink' && (
+                  <>
+                    {/* satellite */}
+                    <g class="ill-float">
+                      <rect x="168" y="20" width="16" height="12" rx="2" />
+                      <path d="M152 22h12M152 30h12M188 22h12M188 30h12M152 18v16M200 18v16" />
+                    </g>
+                    {/* signal */}
+                    <path class="ill-accent ill-wave" d="M150 46c-6 6-6 14 0 20M140 40c-11 11-11 25 0 36" />
+                    {/* house + dish */}
+                    <path d="M40 128V84l40-30 40 30v44M30 92l50-38 50 38M68 128v-22h24v22" />
+                    <path d="M100 72l14-16" />
+                    <path class="ill-accent-fill" d="M104 54a18 18 0 0 0 22 16z" />
+                    <path d="M24 128h192" />
+                  </>
+                )}
+                {c.id === 'solar' && (
+                  <>
+                    {/* sun */}
+                    <circle class="ill-accent-fill ill-pulse" cx="56" cy="40" r="14" />
+                    <path class="ill-accent" d="M56 14v-6M56 72v-6M30 40h-6M88 40h-6M38 22l-4-4M74 58l4 4M38 58l-4 4M74 22l4-4" />
+                    {/* panel */}
+                    <path d="M98 106l18-46h84l-18 46zM110 91h80M104 76h80M135 60l-10 46M161 60l-10 46M186 60l-10 46" />
+                    <path d="M150 106v22M130 128h40" />
+                    {/* grid pole (Jirama) */}
+                    <path d="M40 128V82M28 90h24M30 98h20" />
+                    <path class="ill-dash" d="M52 90c20 6 40 8 58 6" />
+                    <path d="M16 128h208" />
+                  </>
+                )}
+                {c.id === 'uptime' && (
+                  <>
+                    {/* steady power line */}
+                    <path d="M20 112h200" opacity="0.35" />
+                    <path class="ill-accent ill-draw" d="M20 92h56l10-20 10 40 10-20h114" />
+                    {/* bolt badge */}
+                    <circle cx="170" cy="46" r="24" />
+                    <path class="ill-accent-fill" d="M173 28l-14 21h10l-4 17 14-22h-10z" />
+                    <circle class="ill-accent-fill ill-blink" cx="36" cy="40" r="5" />
+                    <path d="M48 40h48" opacity="0.5" />
+                  </>
+                )}
+                {c.id === 'desk' && (
+                  <>
+                    {/* screen */}
+                    <rect x="78" y="36" width="92" height="58" rx="6" />
+                    <path class="ill-accent" d="M92 54h30M92 66h48M92 78h22" />
+                    <path d="M124 94v14M108 108h32" />
+                    {/* desk */}
+                    <path d="M24 112h192M40 112v24M200 112v24" />
+                    {/* lamp */}
+                    <path d="M196 108V62l-14-14" />
+                    <path class="ill-accent-fill" d="M172 54l14-14 8 8-14 14z" />
+                    {/* plant */}
+                    <path d="M44 108h22l-3-18H47z" />
+                    <path d="M55 90c0-12-8-18-14-20M55 90c0-12 6-20 14-22M55 90V70" />
+                    {/* mug */}
+                    <path d="M152 108v-10h12v10zM164 100h4v5h-4" />
+                  </>
+                )}
+              </svg>
+            )}
+          </div>
+          <div class="setup-body">
+            <span class="mono muted">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{c.title}</h3>
+            <p class="muted">{c.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .setup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .setup-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    overflow: hidden;
+    transition: border-color 0.4s, transform 0.5s var(--ease-out);
+  }
+  .setup-card:hover {
+    border-color: var(--line-2);
+    transform: translateY(-4px);
+  }
+  .setup-media {
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at 70% 20%, var(--glow), transparent 65%),
+      var(--bg-3);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-2);
+    overflow: hidden;
+  }
+  .setup-media svg {
+    width: 88%;
+    height: auto;
+  }
+  .setup-media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ill-accent {
+    stroke: var(--accent);
+  }
+  .ill-accent-fill {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+  .ill-dash {
+    stroke-dasharray: 4 6;
+  }
+  .setup-body {
+    display: grid;
+    gap: 0.6rem;
+    padding: clamp(1.25rem, 2vw, 1.6rem);
+  }
+  .setup-body h3 {
+    font-size: clamp(1.45rem, 1.2rem + 0.8vw, 1.9rem);
+    line-height: 1.1;
+  }
+  .setup-body p {
+    font-size: 0.98rem;
+  }
+
+  /* Gentle motion on hover only; nothing moves with reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .setup-card:hover .ill-float {
+      animation: float 2.4s var(--ease-in-out) infinite alternate;
+    }
+    .setup-card:hover .ill-wave,
+    .setup-card:hover .ill-blink {
+      animation: blink 1.2s steps(2) infinite;
+    }
+    .setup-card:hover .ill-pulse {
+      animation: pulse 2s var(--ease-in-out) infinite alternate;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .ill-draw {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 0;
+    }
+    .setup-card:hover .ill-draw {
+      animation: draw 1.6s var(--ease-out);
+    }
+  }
+  @keyframes float {
+    to {
+      transform: translate(-4px, 4px);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0.3;
+    }
+  }
+  @keyframes pulse {
+    to {
+      transform: scale(1.15);
+    }
+  }
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 260;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .setup-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 620px) {
+    .setup-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
