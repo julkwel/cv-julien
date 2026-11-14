@@ -237,19 +237,17 @@ ul {
   letter-spacing: -0.03em;
 }
 .brand-mark {
-  display: grid;
-  place-items: center;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-size: 0.95rem;
-  font-style: italic;
-  transition: transform 0.6s var(--ease-out);
+  object-fit: cover;
+  background: var(--bg-3);
+  box-shadow: 0 0 0 1.5px var(--line-2);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.3s;
 }
 .brand:hover .brand-mark {
-  transform: rotate(-200deg);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 2px var(--accent);
 }
 .nav {
   display: flex;

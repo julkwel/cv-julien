@@ -16,5 +16,8 @@
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "astro": "^7.4.12",
     "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "simple-icons": "^16.37.0"
   }
 }

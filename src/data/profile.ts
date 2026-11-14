@@ -37,7 +37,8 @@ export const builds = [
 
 export const qualities = ['Autodidacte', 'Leadership', 'Vision', 'Écoute', 'Rigueur technique'];
 
-export type SkillGroup = { id: string; title: string; blurb: string; items: string[]; accent?: boolean };
+/** Items with an entry in `techIcons` (src/data/techIcons.ts) render as logos, the rest as text chips. */
+export type SkillGroup = { id: string; title: string; blurb: string; items: string[] };
 
 export const skills: SkillGroup[] = [
   {
@@ -45,13 +46,12 @@ export const skills: SkillGroup[] = [
     title: 'IA & agents',
     blurb: 'Des agents IA qui codent, encadrés par la plateforme.',
     items: ['Claude Code', 'MCP (outils d’agents)', 'Orchestration multi-agents', 'Sandbox Docker', 'Policy engine', 'Revue automatisée'],
-    accent: true,
   },
   {
     id: 'front',
     title: 'Front-end',
     blurb: 'Interfaces rapides, accessibles, pensées mobile-first.',
-    items: ['TypeScript', 'React 19', 'Next.js 16 (App Router)', 'Server Actions', 'Tailwind CSS', 'Angular', 'Vue.js', 'PWA', 'HTML5 / CSS3'],
+    items: ['TypeScript', 'React 19', 'Next.js 16 (App Router)', 'Server Actions', 'Tailwind CSS', 'Angular', 'Vue.js', 'PWA', 'HTML5', 'CSS'],
   },
   {
     id: 'back',
@@ -69,13 +69,13 @@ export const skills: SkillGroup[] = [
     id: 'security',
     title: 'Auth & sécurité',
     blurb: 'Sessions sûres, secrets chiffrés, droits explicites.',
-    items: ['Cookies httpOnly + JWT (jose)', 'bcryptjs', 'NextAuth', 'Rôles & permissions', 'AES-256-GCM', 'Journal d’audit'],
+    items: ['JWT (jose)', 'Cookies httpOnly', 'bcryptjs', 'NextAuth', 'Rôles & permissions', 'AES-256-GCM', 'Journal d’audit'],
   },
   {
     id: 'ops',
     title: 'DevOps',
     blurb: 'Livrer souvent, dormir tranquille.',
-    items: ['Docker & Compose', 'Linux', 'Caddy', 'Apache', 'Certbot', 'SSH', 'GitLab CI', 'CircleCI', 'GitHub'],
+    items: ['Docker & Compose', 'Linux', 'Caddy', 'Apache', 'Let’s Encrypt (Certbot)', 'SSH', 'GitLab CI', 'CircleCI', 'GitHub'],
   },
   {
     id: 'quality',
@@ -87,7 +87,7 @@ export const skills: SkillGroup[] = [
     id: 'mobile',
     title: 'Desktop & mobile',
     blurb: 'Quand le navigateur ne suffit pas.',
-    items: ['Electron', 'Flutter', 'Android', 'Notifications push FCM', 'API mobile versionnée'],
+    items: ['Electron', 'Flutter', 'Android', 'Firebase Cloud Messaging', 'API mobile versionnée'],
   },
 ];
 

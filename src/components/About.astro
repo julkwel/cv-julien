@@ -1,42 +1,19 @@
 ---
-import { Image } from 'astro:assets';
-import portrait from '../assets/julien.jpg';
 import Split from './Split.astro';
 import { qualities, education, certificates } from '../data/profile';
 ---
 <section class="section about" id="about" aria-labelledby="about-title">
   <div class="wrap about-grid">
-    <div class="about-photo" data-reveal>
-      <figure class="polaroid" data-tilt>
-        <Image
-          src={portrait}
-          alt="Portrait de Julien Rajerison, bras croisés, t-shirt rouge aux baobabs"
-          widths={[320, 520, 760]}
-          sizes="(max-width: 760px) 80vw, 380px"
-          loading="lazy"
-          format="webp"
-          quality={78}
-        />
-        <figcaption class="mono">
-          <span>Tana, MG</span><span>18.91°S 47.52°E</span>
-        </figcaption>
-      </figure>
-      <span class="sticker" aria-hidden="true">
-        <svg viewBox="0 0 120 120">
-          <defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
-          <text><textPath href="#circ">fondateur de techzara ✳ autodidacte ✳ </textPath></text>
-        </svg>
-        <span class="sticker-core">✳</span>
-      </span>
-    </div>
-
-    <div class="about-text">
+    <div class="about-head">
       <p class="eyebrow mono" data-reveal><span class="num">01</span> À propos</p>
       <Split
         id="about-title"
         class="section-title"
         text="Du serveur au pixel, *sans raccourci.*"
       />
+    </div>
+
+    <div class="about-text">
       <div class="about-body">
         <p data-reveal style="--d:1">
           Je suis Julien, développeur fullstack à Antananarivo. J’ai commencé avec PHP et Symfony, j’ai mené des équipes
@@ -76,80 +53,22 @@ import { qualities, education, certificates } from '../data/profile';
 <style>
   .about-grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
-    gap: clamp(3rem, 8vw, 8rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
     align-items: start;
   }
-  .about-photo {
+  .about-head {
     position: sticky;
     top: 7rem;
-  }
-  .polaroid {
-    --rx: 0deg;
-    --ry: 0deg;
-    margin: 0;
-    padding: 0.8rem 0.8rem 0;
-    background: var(--bg-3);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.5);
-    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) rotate(-2.5deg);
-    transition: transform 0.6s var(--ease-out);
-    max-width: 380px;
-  }
-  .polaroid :global(img) {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 3px;
-    filter: saturate(0.92) contrast(1.03);
-  }
-  .polaroid figcaption {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.85rem 0.15rem 0.9rem;
-    color: var(--ink-2);
-    font-size: 0.7rem;
-  }
-  .sticker {
-    position: absolute;
-    right: max(-1rem, calc(100% - 380px - 2.5rem));
-    bottom: 2.5rem;
-    width: 7.5rem;
-    height: 7.5rem;
     display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--on-accent);
-  }
-  .sticker svg {
-    position: absolute;
-    inset: 0;
-    animation: spin 18s linear infinite;
-  }
-  .sticker text {
-    font-family: var(--font-mono);
-    font-size: 10.4px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    fill: currentColor;
-  }
-  .sticker-core {
-    font-size: 1.6rem;
-  }
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+    gap: 1.25rem;
   }
   .about-text {
     display: grid;
     gap: 2rem;
   }
-  .about-text :global(.section-title) {
-    max-width: 12ch;
+  .about-head :global(.section-title) {
+    max-width: 11ch;
   }
   .about-body {
     display: grid;
@@ -157,6 +76,11 @@ import { qualities, education, certificates } from '../data/profile';
     font-size: 1.12rem;
     color: var(--ink-2);
     max-width: 60ch;
+  }
+  .about-body p:first-child {
+    font-size: clamp(1.2rem, 1rem + 0.6vw, 1.45rem);
+    line-height: 1.55;
+    color: var(--ink);
   }
   .about-body strong {
     color: var(--ink);
@@ -215,17 +139,8 @@ import { qualities, education, certificates } from '../data/profile';
     .about-grid {
       grid-template-columns: minmax(0, 1fr);
     }
-    .about-photo {
-      position: relative;
-      top: 0;
-      max-width: 340px;
-      margin-inline: auto;
-      width: 85%;
-    }
-    .sticker {
-      right: -1.5rem;
-      width: 6.25rem;
-      height: 6.25rem;
+    .about-head {
+      position: static;
     }
     .facts div {
       grid-template-columns: 1fr;
