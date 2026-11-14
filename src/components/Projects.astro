@@ -1,13 +1,17 @@
 ---
 import Split from './Split.astro';
-import { projects } from '../data/profile';
+import { featured, projects } from '../data/profile';
 
-const [featured, ...others] = projects;
-const covers = [
-  { bg: '#f7c9d4', t: 'Ny Ala' },
-  { bg: '#c9e4d6', t: 'Lalana' },
-  { bg: '#d9d2f5', t: 'Kintana' },
-  { bg: '#fbe2b8', t: 'Ranomasina' },
+const panes = [
+  { bot: '★ manager', lines: ['Tâche assignée à developer', 'Revue demandée à reviewer'], tone: 'muted' },
+  { bot: 'developer', lines: ['Edit src/routes/jobs.ts', 'npm test ✓', 'Commit « feat: filtres »'], tone: 'ok' },
+  { bot: 'reviewer', lines: ['Lecture du diff…', '2 remarques, 1 bloquante'], tone: 'warn' },
+  { bot: 'devops', lines: ['ssh vps · docker compose ps', 'Autoriser le redémarrage ?'], tone: 'ask' },
+];
+const jobs = [
+  { t: 'Senior Frontend Engineer', tags: ['React', 'Remote'], c: '#7c5cff' },
+  { t: 'Backend Developer (Node)', tags: ['Fastify', 'Hybride'], c: '#18a874' },
+  { t: 'Product Designer', tags: ['Figma', 'Full-time'], c: '#ff8a3d' },
 ];
 ---
 <section class="section work" id="work" aria-labelledby="work-title">
@@ -16,104 +20,137 @@ const covers = [
       <p class="eyebrow mono" data-reveal><span class="num">03</span> Projets</p>
       <Split id="work-title" class="section-title" text="Des produits, *pas des maquettes.*" />
       <p class="section-lede" data-reveal style="--d:2">
-        Une sélection de projets que j’ai conçus et développés. Chacun se déplie en cas d’étude : le contexte, les
-        défis, les choix techniques, le résultat.
+        Une sélection de projets que j’ai conçus et développés. Deux cas d’étude en détail, puis le reste de l’atelier :
+        chaque ligne se déplie.
       </p>
     </div>
 
-    <!-- Featured case study -->
-    {featured && (
-      <article class="feature" aria-labelledby="cs-bloom">
+    {featured.map((p, idx) => (
+      <article class:list={['feature', { 'feature--flip': idx % 2 === 1 }]} aria-labelledby={`cs-${p.slug}`}>
         <div class="feature-text">
           <div class="feature-kicker mono" data-reveal>
-            <span class="accent">Cas d’étude</span><span class="muted">{featured.kind}</span>
+            <span class="accent">Cas d’étude {String(idx + 1).padStart(2, '0')}</span><span class="muted">{p.kind}</span>
           </div>
-          <h3 id="cs-bloom" class="feature-title" data-reveal style="--d:1">{featured.name}</h3>
-          <p class="feature-tag" data-reveal style="--d:2">{featured.tagline}</p>
+          <h3 id={`cs-${p.slug}`} class="feature-title" data-reveal style="--d:1">{p.name}</h3>
+          <p class="feature-tag" data-reveal style="--d:2">{p.tagline}</p>
+          <p class="feature-summary" data-reveal style="--d:2">{p.summary}</p>
 
-          <dl class="metrics" data-reveal style="--d:3">
-            {featured.metrics?.map((m) => (
-              <div>
-                <dt class="sr-only">{m.label}</dt>
-                <dd><span class="metric-val" data-count={m.value}>{m.value}</span><span class="metric-label">{m.label}</span></dd>
-              </div>
-            ))}
-          </dl>
+          {p.metrics && (
+            <dl class="metrics" data-reveal style={`--d:3;--n:${p.metrics.length}`}>
+              {p.metrics.map((m) => (
+                <div>
+                  <dt class="sr-only">{m.label}</dt>
+                  <dd>
+                    <span class="metric-val" data-count={/^\d+$/.test(m.value) ? m.value : undefined}>{m.value}</span>
+                    <span class="metric-label">{m.label}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
           <div class="cs" data-reveal style="--d:4">
             <div class="cs-block">
               <h4 class="mono">Contexte</h4>
-              <p>{featured.caseStudy.context}</p>
+              <p>{p.caseStudy.context}</p>
             </div>
             <div class="cs-block">
               <h4 class="mono">Défis</h4>
-              <ul class="ticks">{featured.caseStudy.challenges.map((c) => <li>{c}</li>)}</ul>
+              <ul class="ticks">{p.caseStudy.challenges.map((c) => <li>{c}</li>)}</ul>
             </div>
             <div class="cs-block">
               <h4 class="mono">Ce que j’ai construit</h4>
-              <ul class="ticks">{featured.caseStudy.solutions.map((c) => <li>{c}</li>)}</ul>
+              <ul class="ticks">{p.caseStudy.solutions.map((c) => <li>{c}</li>)}</ul>
             </div>
             <div class="cs-block">
               <h4 class="mono">Résultat</h4>
-              <ul class="ticks">{featured.caseStudy.outcome.map((c) => <li>{c}</li>)}</ul>
+              <ul class="ticks">{p.caseStudy.outcome.map((c) => <li>{c}</li>)}</ul>
             </div>
           </div>
 
-          <ul class="stack" aria-label="Stack technique" data-reveal>
-            {featured.stack.map((s) => <li>{s}</li>)}
+          <ul class="stack" aria-label={`Stack de ${p.name}`} data-reveal>
+            {p.stack.map((s) => <li>{s}</li>)}
           </ul>
+          {p.url && (
+            <a class="btn feature-link" href={p.url} target="_blank" rel="noopener noreferrer" data-magnetic>
+              Visiter {p.url.replace('https://', '')} <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          )}
         </div>
 
         <figure class="feature-visual" data-reveal style="--d:2">
-          <div class="phone" aria-hidden="true" data-parallax>
-            <div class="phone-screen">
-              <div class="bb-top">
-                <span class="bb-logo">✿ Bloom Book</span>
-                <span class="bb-avatar"></span>
+          {p.visual === 'boubou' && (
+            <div class="bb-win" aria-hidden="true" data-parallax="0.6">
+              <div class="bb-bar">
+                <i></i><i></i><i></i><span>Boubou</span>
               </div>
-              <div class="bb-search">Rechercher un livre…</div>
-              <div class="bb-grid">
-                {covers.map((c) => (
-                  <div class="bb-book">
-                    <div class="bb-cover" style={`background:${c.bg}`}><span>{c.t}</span></div>
-                    <span class="bb-line"></span>
-                    <span class="bb-line bb-line--s"></span>
-                  </div>
-                ))}
-              </div>
-              <div class="bb-sheet">
-                <span class="bb-sheet-title">Payer avec</span>
-                <div class="bb-pay">
-                  <span style="--c:#ffd93b">MVola</span>
-                  <span style="--c:#ff8a3d">Orange Money</span>
-                  <span style="--c:#ff5b5b">Airtel Money</span>
-                </div>
-                <div class="bb-actions">
-                  <span class="bb-btn bb-btn--ghost">Louer</span>
-                  <span class="bb-btn">Acheter</span>
+              <div class="bb-body">
+                <ul class="bb-side">
+                  <li class="bb-side-title">Canaux</li>
+                  <li class="is-active"># portfolio</li>
+                  <li># entanago</li>
+                  <li># asera</li>
+                  <li># fiarako</li>
+                </ul>
+                <div class="bb-panes">
+                  {panes.map((pane) => (
+                    <div class:list={['bb-pane', `bb-pane--${pane.tone}`]}>
+                      <span class="bb-bot">{pane.bot}</span>
+                      {pane.lines.map((l) => <span class="bb-line">{l}</span>)}
+                      {pane.tone === 'ask' && (
+                        <span class="bb-ask"><b>Refuser</b><b>Autoriser</b></span>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
-          <div class="admin-card" aria-hidden="true" data-parallax="-0.6">
-            <span class="mono">Admin</span>
-            <div class="admin-row"><span>Commandes</span><b></b></div>
-            <div class="admin-row"><span>Locations</span><b style="width:62%"></b></div>
-            <div class="admin-row"><span>Paiements</span><b style="width:80%"></b></div>
-          </div>
-          <div class="test-pill mono" aria-hidden="true" data-parallax="0.5">✓ 75 passed</div>
+            <div class="float-pill float-pill--a mono" aria-hidden="true" data-parallax="-0.5">🔒 AES-256-GCM</div>
+            <div class="float-pill float-pill--b mono" aria-hidden="true" data-parallax="0.9">sandbox · no secrets</div>
+          )}
+
+          {p.visual === 'asera' && (
+            <div class="as-win" aria-hidden="true" data-parallax="0.6">
+              <div class="as-bar"><i></i><i></i><i></i><span class="as-url">as-era.com</span></div>
+              <div class="as-body">
+                <div class="as-top">
+                  <span class="as-logo">asera</span>
+                  <span class="as-toggle"><b class="is-on">Candidat</b><b>Recruteur</b></span>
+                </div>
+                <div class="as-search">Rechercher un poste tech…</div>
+                <div class="as-filters"><span>Remote</span><span>Startup</span><span>Full-time</span></div>
+                {jobs.map((j) => (
+                  <div class="as-job">
+                    <span class="as-co" style={`background:${j.c}`}></span>
+                    <span class="as-job-main">
+                      <span class="as-job-t">{j.t}</span>
+                      <span class="as-job-meta">{j.tags.map((t) => <em>{t}</em>)}</span>
+                    </span>
+                    <span class="as-apply">Postuler</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <pre class="as-json mono" aria-hidden="true" data-parallax="-0.7">{`GET /api/mobile/v1/jobs
+{
+  "data": [ … ],
+  "pagination": {
+    "page": 1, "pageSize": 20
+  }
+}`}</pre>
+          )}
           <figcaption class="mono muted">Illustration de l’interface</figcaption>
         </figure>
       </article>
-    )}
+    ))}
 
     <!-- Other projects: expandable index -->
     <ol class="index" aria-label="Autres projets">
-      {others.map((p, i) => (
+      {projects.map((p, i) => (
         <li class="row" data-reveal>
           <details class="cs-details" name="project">
             <summary>
-              <span class="row-num mono">{String(i + 2).padStart(2, '0')}</span>
+              <span class="row-num mono">{String(i + featured.length + 1).padStart(2, '0')}</span>
               <span class="row-name">{p.name}</span>
               <span class="row-tag">{p.tagline}</span>
               <span class="row-kind mono muted">{p.kind}</span>
@@ -158,14 +195,26 @@ const covers = [
   /* ---------- featured ---------- */
   .feature {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 6vw, 6rem);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
     padding: clamp(1.5rem, 4vw, 3.5rem);
     border: 1px solid var(--line);
     border-radius: calc(var(--radius) + 8px);
     background:
       radial-gradient(80% 60% at 100% 0%, var(--glow), transparent 70%),
       var(--bg-2);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .feature--flip {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    background:
+      radial-gradient(80% 60% at 0% 0%, var(--glow), transparent 70%),
+      var(--bg-2);
+  }
+  .feature--flip .feature-visual {
+    order: -1;
+  }
+  .feature:last-of-type {
     margin-bottom: clamp(3rem, 7vw, 6rem);
   }
   .feature-text {
@@ -190,9 +239,16 @@ const covers = [
     color: var(--ink-2);
     margin-top: -0.6rem;
   }
+  .feature-summary {
+    font-size: 1.12rem;
+    max-width: 52ch;
+  }
+  .feature-link {
+    align-self: flex-start;
+  }
   .metrics {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
     margin: 0;
     border-block: 1px solid var(--line);
   }
@@ -266,7 +322,7 @@ const covers = [
     color: var(--ink);
   }
 
-  /* ---------- illustrative phone ---------- */
+  /* ---------- illustrative visuals ---------- */
   .feature-visual {
     position: relative;
     margin: 0;
@@ -275,202 +331,299 @@ const covers = [
     align-self: start;
     position: sticky;
     top: 6rem;
-    min-height: 600px;
+    min-height: 560px;
+    padding-block: 2rem 2.5rem;
   }
   .feature-visual figcaption {
     position: absolute;
-    bottom: -1.25rem;
+    bottom: 0;
     left: 50%;
     z-index: 1;
     transform: translateX(-50%);
     white-space: nowrap;
     font-size: 0.68rem;
   }
-  .phone {
+  [data-parallax] {
     --py: 0px;
-    width: min(300px, 78%);
-    aspect-ratio: 9 / 18.5;
-    padding: 10px;
-    border-radius: 44px;
-    background: #141210;
-    box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.08) inset,
-      0 50px 90px -40px rgb(0 0 0 / 0.7),
-      0 0 0 6px color-mix(in srgb, var(--ink) 6%, transparent);
-    transform: translateY(var(--py)) rotate(3deg);
     transition: transform 0.2s linear;
   }
-  .phone-screen {
-    position: relative;
-    height: 100%;
-    border-radius: 34px;
+
+  /* Boubou desktop window (always dark, like the app) */
+  .bb-win {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 14px;
     overflow: hidden;
-    background: #fff8f2;
-    color: #3b2f36;
-    font-family: var(--font-text);
-    container-type: inline-size;
-    padding: 1.6rem 0.9rem 0;
+    background: #16151a;
+    color: #e9e6f0;
+    border: 1px solid rgb(255 255 255 / 0.08);
+    box-shadow: 0 50px 90px -40px rgb(0 0 0 / 0.75);
+    transform: translateY(var(--py)) rotate(-1.5deg);
+    font-size: 0.68rem;
+  }
+  .bb-bar,
+  .as-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    background: rgb(255 255 255 / 0.04);
+    border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  }
+  .bb-bar i,
+  .as-bar i {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: #ff5f57;
+  }
+  .bb-bar i:nth-child(2),
+  .as-bar i:nth-child(2) {
+    background: #febc2e;
+  }
+  .bb-bar i:nth-child(3),
+  .as-bar i:nth-child(3) {
+    background: #28c840;
+  }
+  .bb-bar span {
+    margin-left: 0.6rem;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  .bb-body {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    min-height: 300px;
+  }
+  .bb-side {
+    padding: 0.7rem 0.5rem;
+    border-right: 1px solid rgb(255 255 255 / 0.06);
+    display: grid;
+    align-content: start;
+    gap: 0.2rem;
+    color: #a9a4b6;
+  }
+  .bb-side li {
+    padding: 0.3rem 0.45rem;
+    border-radius: 6px;
+  }
+  .bb-side .is-active {
+    background: rgb(255 90 54 / 0.18);
+    color: #fff;
+  }
+  .bb-side-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .bb-panes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgb(255 255 255 / 0.06);
+  }
+  .bb-pane {
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
+    gap: 0.35rem;
+    padding: 0.7rem;
+    background: #16151a;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: #b9b4c6;
   }
-  .bb-top {
+  .bb-bot {
+    font-family: var(--font-text);
+    font-size: 0.66rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.15rem;
+  }
+  .bb-line::before {
+    content: '› ';
+    color: #ff7a5c;
+  }
+  .bb-pane--ok .bb-line:nth-of-type(3) {
+    color: #4ade80;
+  }
+  .bb-pane--warn .bb-line:last-of-type {
+    color: #fbbf24;
+  }
+  .bb-pane--ask .bb-line:last-of-type {
+    color: #fff;
+  }
+  .bb-ask {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: auto;
+  }
+  .bb-ask b {
+    padding: 0.25rem 0.45rem;
+    border-radius: 5px;
+    font-weight: 500;
+    border: 1px solid rgb(255 255 255 / 0.15);
+  }
+  .bb-ask b:last-child {
+    background: #ff5a36;
+    border-color: #ff5a36;
+    color: #120a07;
+  }
+  .float-pill {
+    position: absolute;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.6);
+  }
+  .float-pill--a {
+    left: -2%;
+    top: 8%;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    transform: translateY(var(--py)) rotate(-5deg);
+  }
+  .float-pill--b {
+    right: 0;
+    bottom: 12%;
+    background: #1f7a4d;
+    color: #fff;
+    transform: translateY(var(--py)) rotate(4deg);
+  }
+
+  /* Asera browser window */
+  .as-win {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fbfaff;
+    color: #1d1a2b;
+    border: 1px solid rgb(0 0 0 / 0.08);
+    box-shadow: 0 50px 90px -40px rgb(0 0 0 / 0.55);
+    transform: translateY(var(--py)) rotate(1.5deg);
+    font-size: 0.72rem;
+  }
+  .as-bar {
+    background: #efedf6;
+    border-color: rgb(0 0 0 / 0.06);
+  }
+  .as-url {
+    flex: 1;
+    margin-left: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    background: #fff;
+    color: #5b5670;
+    font-size: 0.64rem;
+  }
+  .as-body {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1rem;
+  }
+  .as-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .bb-logo {
+  .as-logo {
     font-family: var(--font-display);
-    font-size: 1.05rem;
-    color: #b8457a;
-  }
-  .bb-avatar {
-    width: 1.6rem;
-    height: 1.6rem;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f7c9d4, #d9d2f5);
-  }
-  .bb-search {
-    padding: 0.55rem 0.8rem;
-    border-radius: 999px;
-    background: #f3e8ef;
-    font-size: 0.68rem;
-    color: #6a5a63;
-  }
-  .bb-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
-  }
-  .bb-book {
-    display: grid;
-    gap: 0.3rem;
-  }
-  .bb-cover {
-    aspect-ratio: 3 / 3.4;
-    border-radius: 10px;
-    display: flex;
-    align-items: flex-end;
-    padding: 0.5rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 0.8rem;
-    color: #3b2f36;
-    box-shadow: inset -6px 0 0 rgb(0 0 0 / 0.05);
-  }
-  @container (max-width: 270px) {
-    .bb-cover {
-      aspect-ratio: 3 / 2.4;
-    }
-    .bb-line--s {
-      display: none;
-    }
-  }
-  .bb-line {
-    height: 5px;
-    width: 80%;
-    border-radius: 3px;
-    background: #ead9e2;
-  }
-  .bb-line--s {
-    width: 45%;
-  }
-  .bb-sheet {
-    margin-top: auto;
-    margin-inline: -0.9rem;
-    padding: 0.9rem 0.9rem 1.2rem;
-    border-radius: 22px 22px 0 0;
-    background: #fff;
-    box-shadow: 0 -10px 30px rgb(184 69 122 / 0.12);
-    display: grid;
-    gap: 0.6rem;
-  }
-  .bb-sheet-title {
-    font-size: 0.7rem;
+    font-size: 1.2rem;
     font-weight: 600;
+    letter-spacing: -0.02em;
   }
-  .bb-pay {
+  .as-toggle {
     display: flex;
-    flex-wrap: wrap;
+    padding: 0.15rem;
+    border-radius: 999px;
+    background: #ece9f5;
+  }
+  .as-toggle b {
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.62rem;
+    color: #5b5670;
+  }
+  .as-toggle .is-on {
+    background: #1d1a2b;
+    color: #fff;
+  }
+  .as-search {
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #e3e0ee;
+    background: #fff;
+    color: #6b6680;
+  }
+  .as-filters {
+    display: flex;
     gap: 0.35rem;
   }
-  .bb-pay span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
+  .as-filters span {
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid #e3e0ee;
     font-size: 0.62rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 999px;
-    border: 1px solid #eadde4;
   }
-  .bb-pay span::before {
-    content: '';
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: var(--c);
-  }
-  .bb-actions {
+  .as-job {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.4rem;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #ebe8f3;
   }
-  .bb-btn {
-    text-align: center;
-    padding: 0.5rem;
-    border-radius: 999px;
-    background: #b8457a;
-    color: #fff;
-    font-size: 0.7rem;
+  .as-co {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+  }
+  .as-job-main {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .as-job-t {
     font-weight: 600;
   }
-  .bb-btn--ghost {
-    background: #f3e8ef;
-    color: #b8457a;
+  .as-job-meta {
+    display: flex;
+    gap: 0.3rem;
   }
-  .admin-card {
-    --py: 0px;
-    position: absolute;
-    left: -4%;
-    top: 22%;
-    width: 12rem;
-    padding: 1rem;
-    border-radius: 14px;
-    background: var(--bg);
-    border: 1px solid var(--line-2);
-    box-shadow: 0 30px 50px -30px rgb(0 0 0 / 0.5);
-    display: grid;
-    gap: 0.55rem;
-    transform: translateY(var(--py)) rotate(-4deg);
-    font-size: 0.78rem;
+  .as-job-meta em {
+    font-style: normal;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    background: #f1eff8;
+    color: #4a4560;
   }
-  .admin-card .mono {
-    color: var(--accent-ink);
-    font-size: 0.65rem;
-  }
-  .admin-row {
-    display: grid;
-    gap: 0.25rem;
-  }
-  .admin-row b {
-    display: block;
-    height: 4px;
-    width: 45%;
-    border-radius: 2px;
-    background: var(--accent);
-  }
-  .test-pill {
-    --py: 0px;
-    position: absolute;
-    right: 0;
-    bottom: 14%;
-    padding: 0.6rem 0.9rem;
+  .as-apply {
+    padding: 0.35rem 0.6rem;
     border-radius: 999px;
-    background: #1f7a4d;
+    background: #1d1a2b;
     color: #fff;
-    font-size: 0.72rem;
-    transform: translateY(var(--py)) rotate(5deg);
-    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.6);
+    font-size: 0.62rem;
+    font-weight: 500;
+  }
+  .as-json {
+    position: absolute;
+    left: -3%;
+    bottom: 6%;
+    margin: 0;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    background: #16151a;
+    color: #e9e6f0;
+    font-size: 0.62rem;
+    line-height: 1.5;
+    text-transform: none;
+    letter-spacing: 0;
+    box-shadow: 0 30px 50px -25px rgb(0 0 0 / 0.6);
+    transform: translateY(var(--py)) rotate(-3deg);
   }
 
   /* ---------- index ---------- */
@@ -598,18 +751,15 @@ const covers = [
   }
 
   @media (max-width: 1000px) {
-    .feature {
+    .feature,
+    .feature--flip {
       grid-template-columns: minmax(0, 1fr);
     }
     .feature-visual {
       position: relative;
       top: 0;
       min-height: 0;
-      padding-bottom: 2.5rem;
       order: -1;
-    }
-    .phone {
-      width: min(280px, 80%);
     }
   }
   @media (max-width: 760px) {
@@ -644,9 +794,21 @@ const covers = [
     .metrics > div + div {
       padding-left: 0.75rem;
     }
-    .admin-card {
-      width: 10.5rem;
-      font-size: 0.7rem;
+    .bb-body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .bb-side {
+      display: none;
+    }
+    .as-json {
+      display: none;
+    }
+    .float-pill--a {
+      left: 0;
+      top: 0;
+    }
+    .float-pill--b {
+      bottom: 0.75rem;
     }
   }
 </style>

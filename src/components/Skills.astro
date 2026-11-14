@@ -3,6 +3,7 @@ import Split from './Split.astro';
 import { skills } from '../data/profile';
 
 const icons: Record<string, string> = {
+  ai: 'M12 2v3M12 19v3M5 12H2M22 12h-3M7 7h10v10H7zM10 10h4v4h-4z',
   front: 'M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01',
   back: 'M5 4h14v6H5zM5 14h14v6H5zM8 7h.01M8 17h.01',
   data: 'M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6',
@@ -79,20 +80,17 @@ const icons: Record<string, string> = {
   .card:hover::before {
     opacity: 1;
   }
+  .card--ai,
   .card--front {
     grid-column: span 3;
   }
-  .card--back {
-    grid-column: span 3;
-  }
+  .card--back,
   .card--data,
-  .card--security,
-  .card--ops {
+  .card--security {
     grid-column: span 2;
   }
-  .card--quality {
-    grid-column: span 4;
-  }
+  .card--ops,
+  .card--quality,
   .card--mobile {
     grid-column: span 2;
   }
@@ -167,8 +165,8 @@ const icons: Record<string, string> = {
     .card[class*='card--'] {
       grid-column: span 1;
     }
-    .card--front,
-    .card--quality {
+    .card--ai,
+    .card--back {
       grid-column: span 2 !important;
     }
   }
